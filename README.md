@@ -7,7 +7,7 @@ Submission deadlines for **CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI** on one fil
 - Countdown to the next deadlines, shown in your local time (all deadlines are Anywhere on Earth)
 - Timeline and table, filterable by conference and track
 - Confirmed dates come from the official calls; dashed ones are estimated from the previous edition
-- A private “My project” column to note what you plan to submit where (saved in your browser only)
+- **My plan**: star the deadlines you follow, show only those, and export them to your calendar (.ics) with reminders 7 days and 1 day before each deadline. Your plan stays in your browser.
 
 Always check the official call before submitting. Spotted a wrong date? [Open an issue](https://github.com/aurelienlcp/hci-xr-deadlines/issues/new?labels=correction).
 

@@ -6,7 +6,6 @@
                  "est"  = estimated from the previous edition
                  "roll" = rolling submissions, no deadline
    track:        "papers" | "posters" | "demos" | "dc" | "ws" | "sv"
-   sub:          may be omitted when each workshop sets its own paper deadline
    abs:          mandatory abstract deadline (optional)
    notifLbl:     optional label for notif (default "Notification" / "Final decision")
    notif / cr:   final decision and camera-ready / publication-ready dates (optional)
@@ -50,8 +49,6 @@ window.DEADLINES = [
    fmt:"Applications open Dec 1. About 25–30 h of work + orientation on Feb 26. Free registration, which cannot be used to register a paper."},
   {id:"vr27wsp", conf:"ieeevr", ed:"IEEE VR 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2026-09-28", notif:"2026-10-12", st:"ok",
    fmt:"Proposal and the workshop's call for papers are due together. Workshops run Feb 27–28, 2027."},
-  {id:"vr27wsc", conf:"ieeevr", ed:"IEEE VR 2027", track:"ws", name:"Workshop papers (participants)", notif:"2027-01-07", notifLbl:"Latest author notification", cr:"2027-01-12", st:"ok",
-   fmt:"Each workshop sets its own paper deadline, usually in November–December. The dates here apply to papers going into the IEEE Digital Library."},
 
   // CHI
   {id:"chi27p", conf:"chi", ed:"CHI 2027", track:"papers", name:"Papers", sub:"2026-09-10", notif:"2026-12-17", cr:"2027-02-18",
@@ -74,9 +71,6 @@ window.DEADLINES = [
   {id:"chi27wsp", conf:"chi", ed:"CHI 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2026-10-01", notif:"2026-11-19", cr:"2026-12-17",
    steps:[{d:"2026-11-26", lbl:"E-rights form", act:true}, {d:"2026-12-03", lbl:"TAPS upload", act:true}], st:"ok",
    fmt:"Workshop jurors apply by Sep 28. The call for participation and the list of accepted workshops go out Dec 17."},
-  {id:"chi27wsc", conf:"chi", ed:"CHI 2027", track:"ws", name:"Workshop papers (participants)", sub:"2027-02-11",
-   steps:[{d:"2026-12-17", lbl:"Accepted workshops announced"}], st:"est",
-   fmt:"Guideline date from the CHI call; each workshop may set its own. Participants must be notified at least 7 days before early registration closes."},
 
   // ICMI
   {id:"icmi27p", conf:"icmi", ed:"ICMI 2027", track:"papers", name:"Long & short papers", abs:"2027-04-12", sub:"2027-04-19", notif:"2027-07-01", cr:"2027-07-22",
@@ -92,8 +86,6 @@ window.DEADLINES = [
    fmt:"In 2026: June 21, notification July 15."},
   {id:"icmi27wsp", conf:"icmi", ed:"ICMI 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2027-01-22", notif:"2027-02-12", st:"est",
    fmt:"In 2026: proposals Jan 23 (after extension), notification Feb 13."},
-  {id:"icmi27wsc", conf:"icmi", ed:"ICMI 2027", track:"ws", name:"Workshop papers (participants)", cr:"2027-08-01", st:"est",
-   fmt:"Each workshop sets its own paper deadline. In 2026 workshop camera-ready was due Aug 2; workshops ran on the first and last days."},
 
   // ISMAR
   {id:"ismar27p", conf:"ismar", ed:"ISMAR 2027", track:"papers", name:"Papers", abs:"2027-03-08", sub:"2027-03-15", notif:"2027-06-21", cr:"2027-07-20",
@@ -110,9 +102,6 @@ window.DEADLINES = [
    fmt:"In 2026: opened June 8, closed July 15, notification July 29. About 20 h; PhD students prioritised."},
   {id:"ismar27wsp", conf:"ismar", ed:"ISMAR 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2027-05-21", notif:"2027-06-04", st:"est",
    fmt:"In 2026: proposals May 22, notification June 5."},
-  {id:"ismar27wsc", conf:"ismar", ed:"ISMAR 2027", track:"ws", name:"Workshop papers (participants)", notif:"2027-07-16", notifLbl:"Latest author notification", cr:"2027-07-30",
-   steps:[{d:"2027-06-18", lbl:"Workshop calls published"}], st:"est",
-   fmt:"Each workshop sets its own paper deadline, usually late June to early July. In 2026: calls by June 19, decisions by July 17, camera-ready July 31."},
 
   // CSCW
   {id:"cscwp", conf:"cscw", ed:"CSCW 2027+", track:"papers", name:"Papers (rolling)", st:"roll",
@@ -127,8 +116,6 @@ window.DEADLINES = [
    fmt:"Lottery on new.chisv.org. In 2026: opened Mar 18, closed June 1, notification June 15. 20 h; travel and housing not covered."},
   {id:"cscw27wsp", conf:"cscw", ed:"CSCW 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2027-04-09", notif:"2027-05-04", cr:"2027-05-20", st:"est",
    fmt:"In 2026: proposals Apr 10, notification May 5, web description and camera-ready May 21."},
-  {id:"cscw27wsc", conf:"cscw", ed:"CSCW 2027", track:"ws", name:"Workshop papers (participants)", notif:"2027-08-16", notifLbl:"Participants selected by", st:"est",
-   fmt:"Each workshop recruits participants over the summer. In 2026 recruitment had to be complete by Aug 17."},
 
   // VRST
   {id:"vrst26p", conf:"vrst", ed:"VRST 2026", track:"papers", name:"Papers", abs:"2026-06-17", sub:"2026-06-24", notif:"2026-09-13", cr:"2026-09-25",
@@ -154,7 +141,6 @@ window.NOTES = [
     "Single review cycle: a paper is accepted as TVCG, accepted as conference paper, or rejected.",
     "Rejected papers are no longer moved to posters automatically; submit to the posters track (Dec 7) instead.",
     "All senior authors must volunteer as reviewers, or risk desk rejection.",
-    "Workshops set their own deadlines; notifications by Jan 7, 2027 at the latest.",
     "Workshop proposals close Sep 28, 2026; results Oct 12.",
     "Student volunteers: the free registration cannot be used to register an accepted paper."],
    src:[["Papers","https://ieeevr.org/2027/contribute/papers/"],["Posters","https://ieeevr.org/2027/contribute/posters/"],["Demos","https://ieeevr.org/2027/contribute/demos/"],["DC 2026","http://ieeevr.org/2026/contribute/doctoral-consortium/"],["SVs","https://ieeevr.org/2027/contribute/student-volunteers/"],["Workshops","https://ieeevr.org/2027/contribute/workshops/"]]},
@@ -162,7 +148,6 @@ window.NOTES = [
     "Papers closed Sep 10, 2026; reviews Nov 5, revise & resubmit Dec 3, decisions Dec 17.",
     "Posters, demos and SRC are all due Jan 21, 2027. A given piece of work can go to only one of them.",
     "No Doctoral Consortium in 2027. The seven categories are Papers, Posters, Interactive Demos, Panels, Workshops, Meet-ups and SRC.",
-    "Workshop papers: around Feb 11, 2027, depending on each workshop.",
     "Workshop proposals close Oct 1, 2026; accepted workshops are announced Dec 17.",
     "Posters: four authors must sign up as reviewers.",
     "Student volunteers are picked by lottery on new.chisv.org; the 2027 call is not out yet."],
@@ -172,14 +157,14 @@ window.NOTES = [
     "Some 2026 deadlines were 23:59 PDT rather than AoE; check the 2027 call.",
     "Long and short papers share one deadline, with the abstract about ten days earlier.",
     "No student volunteer call was published on the ICMI 2026 site.",
-    "Workshops: proposals in late January; each accepted workshop runs its own paper call."],
+    "Workshop proposals in 2026: Jan 23 (after extension), notification Feb 13."],
    src:[["2026 dates","https://icmi.acm.org/2026/important-dates/"],["Workshops 2026","https://icmi.acm.org/2026/workshops/"]]},
   {conf:"ismar", title:"ISMAR 2027", items:[
     "2027 call not yet published; dates estimated from ISMAR 2026 (Bari, Oct 5–9).",
     "Papers are due in March, about six months before the conference: the earliest deadline of the autumn venues.",
     "2026 sequence: DC in early June, posters in late June, demos in mid-July.",
     "Student volunteers in 2026: applications June 8 – July 15, about 20 h of work, registration waived.",
-    "Workshops in 2026: proposals May 22, workshop calls by June 19, participant decisions by July 17."],
+    "Workshop proposals in 2026: May 22, notification June 5."],
    src:[["ISMAR 2026","https://www.ieeeismar.net/2026/"],["DC 2026","https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"],["SVs 2026","https://www.ieeeismar.net/2026/call-for-student-volunteers/"],["Workshops 2026","https://www.ieeeismar.net/2026/call-for-workshops/"]]},
   {conf:"cscw", title:"CSCW 2027 and beyond", items:[
     "Papers move to rolling submission: PACM HCI/CSCW, or ToCHI if in CSCW scope.",
@@ -187,7 +172,7 @@ window.NOTES = [
     "Posters, demos and DC keep a fixed deadline (May 15 in 2026), estimated here as mid-May 2027.",
     "CSCW 2027 venue and dates not announced yet.",
     "Student volunteers: lottery on new.chisv.org, 20 h of work; travel, housing and meals at your own cost (lunch provided).",
-    "Workshops in 2026: proposals Apr 10; each workshop recruited participants by Aug 17."],
+    "Workshop proposals in 2026: Apr 10, notification May 5."],
    src:[["CSCW 2027+","https://cscw.acm.org/rolling.html"],["Posters 2026","https://cscw.acm.org/2026/posters.html"],["DC 2026","https://cscw.acm.org/2026/dc.html"],["SVs 2026","https://cscw.acm.org/2026/sv.html"],["Workshops 2026","https://cscw.acm.org/2026/workshops.html"]]},
   {conf:"vrst", title:"VRST", items:[
     "VRST 2026 (Sendai, Nov 16–18): all deadlines have passed.",
