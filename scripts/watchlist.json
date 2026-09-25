@@ -18,6 +18,8 @@
     {"name": "IEEE VR 2027 Posters", "url": "https://ieeevr.org/2027/contribute/posters/", "anchor": "Important Dates"},
     {"name": "IEEE VR 2027 Research Demos", "url": "https://ieeevr.org/2027/contribute/demos/", "anchor": "Important Dates"},
     {"name": "IEEE VR 2027 Student Volunteers", "url": "https://ieeevr.org/2027/contribute/student-volunteers/", "anchor": ""},
+    {"name": "CHI 2027 Workshops", "url": "https://chi2027.acm.org/authors/workshops/", "anchor": "Important Dates"},
+    {"name": "IEEE VR 2027 Workshops", "url": "https://ieeevr.org/2027/contribute/workshops/", "anchor": ""},
     {"name": "CSCW rolling papers", "url": "https://cscw.acm.org/rolling.html", "anchor": "CALL FOR PAPERS"}
   ]
 }
