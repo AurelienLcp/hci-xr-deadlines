@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Submission deadlines for CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters, demos and doctoral consortia.">
+<meta name="description" content="Submission deadlines for CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters, demos, doctoral consortia and student volunteer calls.">
 <title>HCI & XR Deadlines 2026–27</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 :root{
   --bg:#F4F6F9; --surface:#FFFFFF; --ink:#18202E; --muted:#5A6477; --faint:#8A93A4;
   --line:#DCE1E9; --line-2:#EBEEF3; --accent:#2346B8; --today:#D02F4A;
-  --t-papers:#2F5BD3; --t-posters:#C25A12; --t-demos:#0E8466; --t-dc:#8A3FBF;
+  --t-papers:#2F5BD3; --t-posters:#C25A12; --t-demos:#0E8466; --t-dc:#8A3FBF; --t-sv:#B0356B;
   --band:#E4E9F2; --band-est:#EEF1F6; --hover:#EEF2FA;
   --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -23,7 +23,7 @@
     color-scheme:dark;
     --bg:#11151D; --surface:#181D27; --ink:#E6EAF2; --muted:#A2ABBD; --faint:#737D90;
     --line:#2B3342; --line-2:#222936; --accent:#8FA8FF; --today:#FF6B81;
-    --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0;
+    --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0; --t-sv:#F07AA8;
     --band:#232B3A; --band-est:#1C2230; --hover:#1F2636;
   }
 }
@@ -31,7 +31,7 @@
   color-scheme:dark;
   --bg:#11151D; --surface:#181D27; --ink:#E6EAF2; --muted:#A2ABBD; --faint:#737D90;
   --line:#2B3342; --line-2:#222936; --accent:#8FA8FF; --today:#FF6B81;
-  --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0;
+  --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0; --t-sv:#F07AA8;
   --band:#232B3A; --band-est:#1C2230; --hover:#1F2636;
 }
 *{box-sizing:border-box}
@@ -141,7 +141,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
   <header>
     <span class="eyebrow" id="verified">Submission planner</span>
     <h1>HCI &amp; XR Deadlines 2026–27</h1>
-    <p class="lede">CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters and late-breaking work, demos and doctoral consortia, from the current cycle through the end of 2027. Solid markers come from the official calls; dashed markers are estimated from the previous edition until the call is published.</p>
+    <p class="lede">CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters and late-breaking work, demos, doctoral consortia and student volunteer calls, from the current cycle through the end of 2027. Solid markers come from the official calls; dashed markers are estimated from the previous edition until the call is published.</p>
     <p class="aoe">All deadlines are <b>Anywhere on Earth (UTC−12)</b>. A deadline on day D closes at <b>11:59 UTC the following day</b>, which is <b id="local-close">–</b> in your time zone. Countdowns on this page account for this.</p>
   </header>
 
@@ -170,7 +170,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
       </div>
     </div>
     <div class="card tl-scroll" id="tl-scroll"><div class="tl" id="tl"></div></div>
-    <p class="hint">Each row has one lane per track (papers, posters, demos, DC). The thin line runs from submission to notification; small dots mark mandatory abstract deadlines. Click a marker to jump to it in the table.</p>
+    <p class="hint">Each row has one lane per track (papers, posters, demos, DC, student volunteers). The thin line runs from submission to notification; small dots mark mandatory abstract deadlines. Click a marker to jump to it in the table.</p>
   </section>
 
   <section aria-labelledby="h-tbl">
@@ -203,9 +203,10 @@ const TRACKS = {
   papers:  {label:"Papers",          c:"--t-papers"},
   posters: {label:"Posters / LBW",   c:"--t-posters"},
   demos:   {label:"Demos",           c:"--t-demos"},
-  dc:      {label:"DC / students",   c:"--t-dc"}
+  dc:      {label:"DC / SRC",        c:"--t-dc"},
+  sv:      {label:"Student volunteers", c:"--t-sv"}
 };
-const LANES = ["papers","posters","demos","dc"];
+const LANES = ["papers","posters","demos","dc","sv"];
 const CONFS = window.CONFS, D = window.DEADLINES, NOTES = window.NOTES;
 
 /* ---------- helpers ---------- */
@@ -237,12 +238,13 @@ const store = {
 const saved = store.get("dl-filters") || {};
 const state = {
   confs: new Set(saved.confs || CONFS.map(c=>c.id)),
-  tracks: new Set(saved.tracks || LANES),
+  // tracks added after a visitor saved their filters are shown by default
+  tracks: new Set((saved.tracks || LANES).concat(LANES.filter(t => !(saved.known || ["papers","posters","demos","dc"]).includes(t)))),
   past: !!saved.past,
   est: saved.est !== false
 };
 const projects = store.get("dl-projects") || {};
-function persist(){ store.set("dl-filters", {confs:[...state.confs], tracks:[...state.tracks], past:state.past, est:state.est}); }
+function persist(){ store.set("dl-filters", {confs:[...state.confs], tracks:[...state.tracks], known:LANES, past:state.past, est:state.est}); }
 
 function visible(e){
   if(!state.confs.has(e.conf) || !state.tracks.has(e.track)) return false;

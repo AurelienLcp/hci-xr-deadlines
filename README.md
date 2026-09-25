@@ -2,7 +2,7 @@
 
 **[aurelienlcp.github.io/hci-xr-deadlines](https://aurelienlcp.github.io/hci-xr-deadlines/)**
 
-Submission deadlines for **CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI** on one filterable timeline: papers, posters and late-breaking work, demos and doctoral consortia.
+Submission deadlines for **CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI** on one filterable timeline: papers, posters and late-breaking work, demos, doctoral consortia and student volunteer calls.
 
 - Countdown to the next deadlines, shown in your local time (all deadlines are Anywhere on Earth)
 - Timeline and table, filterable by conference and track
