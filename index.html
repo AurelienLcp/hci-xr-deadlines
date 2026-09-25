@@ -369,7 +369,7 @@ function renderNext(){
 const T0 = Date.UTC(2026,8,1), T1 = Date.UTC(2028,0,1), W = 1500;
 const x = ms => (ms - T0) / (T1 - T0) * W;
 const xc = ms => Math.min(W, Math.max(0, x(ms)));
-const LANE_H = 19, ROW_PAD = 8;
+const LANE_H = 19, ROW_PAD = 8, ROW_MIN = 58;
 
 function renderTimeline(){
   const tl = document.getElementById("tl");
@@ -385,9 +385,19 @@ function renderTimeline(){
   head += `</div></div>`;
 
   let rows = "";
-  const activeLanes = LANES.filter(t => state.tracks.has(t));
-  CONFS.filter(c => state.confs.has(c.id)).forEach(c => {
-    const H = Math.max(1, activeLanes.length) * LANE_H + ROW_PAD * 2;
+  const allLanes = LANES.filter(t => state.tracks.has(t));
+  // With "Only my plan", show only conferences with a starred deadline,
+  // and give each row one lane per track actually starred there.
+  const confs = CONFS.filter(c => state.confs.has(c.id) && (!state.plan || D.some(e => e.conf === c.id && visible(e))));
+  if(state.plan && !confs.length){
+    tl.innerHTML = head + `<p class="empty">No deadline in your plan with these filters. Click ☆ on a row of the table to add one.</p>`;
+    return;
+  }
+  confs.forEach(c => {
+    const activeLanes = state.plan ? allLanes.filter(t => D.some(e => e.conf === c.id && e.track === t && visible(e))) : allLanes;
+    // rows never get shorter than the conference label; lanes are centred in the row
+    const H = Math.max(ROW_MIN, Math.max(1, activeLanes.length) * LANE_H + ROW_PAD * 2);
+    const pad = (H - Math.max(1, activeLanes.length) * LANE_H) / 2;
     let inner = "";
     months.forEach(([y,m]) => { inner += `<div class="grid" style="left:${x(Date.UTC(y,m,1))}px"></div>`; });
     c.bands.forEach(b => {
@@ -397,7 +407,7 @@ function renderTimeline(){
     });
     D.filter(e => e.conf === c.id && visible(e)).forEach(e => {
       const lane = activeLanes.indexOf(e.track);
-      const top = ROW_PAD + lane * LANE_H + LANE_H/2;
+      const top = pad + lane * LANE_H + LANE_H/2;
       const col = cvar(e.track);
       if(e.st === "roll"){
         const l = Math.max(0, x(NOW));
