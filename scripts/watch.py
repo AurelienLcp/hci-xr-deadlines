@@ -2,7 +2,7 @@
 """Deadline watcher for the HCI & XR Deadlines page.
 
 Runs from GitHub Actions. It never edits data.js: it only opens issues
-so a person (or the monthly Claude task) can update the dates.
+so a person (or the monthly review) can update the dates.
 
 1. new_editions: a page that returned an error goes live -> issue "new-call".
 2. calls: the dates listed after the anchor text change -> issue "date-change".

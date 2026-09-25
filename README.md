@@ -16,7 +16,7 @@ Always check the official call before submitting. Spotted a wrong date? [Open an
 The dates are watched automatically:
 
 - **Daily:** a GitHub Action checks the official calls and opens an issue when a new call goes online or a date changes.
-- **Monthly:** a Claude review confirms the dates and opens a pull request updating the page, with sources.
+- **Monthly:** a scheduled review confirms the dates and opens a pull request updating the page, with sources.
 
 Every change is reviewed before it goes live.
 
