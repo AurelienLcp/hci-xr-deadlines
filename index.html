@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Submission deadlines for CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters, demos, doctoral consortia and student volunteer calls.">
+<meta name="description" content="Submission deadlines for CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters, demos, doctoral consortia, workshops and student volunteer calls.">
 <title>HCI & XR Deadlines 2026–27</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 :root{
   --bg:#F4F6F9; --surface:#FFFFFF; --ink:#18202E; --muted:#5A6477; --faint:#8A93A4;
   --line:#DCE1E9; --line-2:#EBEEF3; --accent:#2346B8; --today:#D02F4A;
-  --t-papers:#2F5BD3; --t-posters:#C25A12; --t-demos:#0E8466; --t-dc:#8A3FBF; --t-sv:#B0356B;
+  --t-papers:#2F5BD3; --t-posters:#C25A12; --t-demos:#0E8466; --t-dc:#8A3FBF; --t-sv:#B0356B; --t-ws:#8A6D00;
   --band:#E4E9F2; --band-est:#EEF1F6; --hover:#EEF2FA;
   --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -23,7 +23,7 @@
     color-scheme:dark;
     --bg:#11151D; --surface:#181D27; --ink:#E6EAF2; --muted:#A2ABBD; --faint:#737D90;
     --line:#2B3342; --line-2:#222936; --accent:#8FA8FF; --today:#FF6B81;
-    --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0; --t-sv:#F07AA8;
+    --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0; --t-sv:#F07AA8; --t-ws:#E0B84A;
     --band:#232B3A; --band-est:#1C2230; --hover:#1F2636;
   }
 }
@@ -31,7 +31,7 @@
   color-scheme:dark;
   --bg:#11151D; --surface:#181D27; --ink:#E6EAF2; --muted:#A2ABBD; --faint:#737D90;
   --line:#2B3342; --line-2:#222936; --accent:#8FA8FF; --today:#FF6B81;
-  --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0; --t-sv:#F07AA8;
+  --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0; --t-sv:#F07AA8; --t-ws:#E0B84A;
   --band:#232B3A; --band-est:#1C2230; --hover:#1F2636;
 }
 *{box-sizing:border-box}
@@ -151,7 +151,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
   <header>
     <span class="eyebrow" id="verified">Submission planner</span>
     <h1>HCI &amp; XR Deadlines 2026–27</h1>
-    <p class="lede">CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters and late-breaking work, demos, doctoral consortia and student volunteer calls, from the current cycle through the end of 2027. Solid markers come from the official calls; dashed markers are estimated from the previous edition until the call is published.</p>
+    <p class="lede">CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters and late-breaking work, demos, doctoral consortia, workshops and student volunteer calls, from the current cycle through the end of 2027. Solid markers come from the official calls; dashed markers are estimated from the previous edition until the call is published.</p>
     <p class="aoe">All deadlines are <b>Anywhere on Earth (UTC−12)</b>. A deadline on day D closes at <b>11:59 UTC the following day</b>, which is <b id="local-close">–</b> in your time zone. Countdowns on this page account for this.</p>
   </header>
 
@@ -182,7 +182,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
       </div>
     </div>
     <div class="card tl-scroll" id="tl-scroll"><div class="tl" id="tl"></div></div>
-    <p class="hint">Each row has one lane per track (papers, posters, demos, DC, student volunteers). The thin line runs from submission to the last milestone. Small dots are author actions (abstract, rebuttal, revision, camera-ready); thin ticks are review milestones such as reviews released or the final decision. Click a marker to jump to it in the table.</p>
+    <p class="hint">Each row has one lane per track (papers, posters, demos, DC, workshops, student volunteers). The thin line runs from submission to the last milestone. Small dots are author actions (abstract, rebuttal, revision, camera-ready); thin ticks are review milestones such as reviews released or the final decision. Click a marker to jump to it in the table.</p>
   </section>
 
   <section aria-labelledby="h-tbl">
@@ -218,9 +218,10 @@ const TRACKS = {
   posters: {label:"Posters / LBW",   c:"--t-posters"},
   demos:   {label:"Demos",           c:"--t-demos"},
   dc:      {label:"DC / SRC",        c:"--t-dc"},
-  sv:      {label:"Student volunteers", c:"--t-sv"}
+  sv:      {label:"Student volunteers", c:"--t-sv"},
+  ws:      {label:"Workshops",       c:"--t-ws"}
 };
-const LANES = ["papers","posters","demos","dc","sv"];
+const LANES = ["papers","posters","demos","dc","ws","sv"];
 const CONFS = window.CONFS, D = window.DEADLINES, NOTES = window.NOTES;
 
 /* ---------- helpers ---------- */
@@ -246,7 +247,7 @@ function milestones(e){
   if(e.abs) ms.push({d:e.abs, lbl:"Abstract due", act:true, kind:"abs"});
   if(e.sub) ms.push({d:e.sub, lbl:"Submission", act:true, kind:"sub"});
   (e.steps || []).forEach(s => ms.push({d:s.d, lbl:s.lbl, act:!!s.act, kind:"step"}));
-  if(e.notif) ms.push({d:e.notif, lbl:(e.steps||[]).some(s => s.d < e.notif) ? "Final decision" : "Notification", act:false, kind:"notif"});
+  if(e.notif) ms.push({d:e.notif, lbl:e.notifLbl || ((e.steps||[]).some(s => s.d < e.notif) ? "Final decision" : "Notification"), act:false, kind:"notif"});
   if(e.cr) ms.push({d:e.cr, lbl:"Camera-ready", act:true, kind:"cr"});
   ms.sort((a,b) => dayMs(a.d) - dayMs(b.d));
   return (e._ms = ms);
@@ -313,7 +314,9 @@ function renderNext(){
   const el = document.getElementById("next");
   const items = [];
   D.filter(inFilters).forEach(e => milestones(e).forEach(m => {
-    if(m.act && (m.kind === "sub" || m.kind === "step") && future(m.d)) items.push({e, m});
+    // skip post-acceptance paperwork (e-rights, TAPS…): only steps before the decision
+    const beforeDecision = m.kind === "sub" || !e.notif || dayMs(m.d) <= dayMs(e.notif);
+    if(m.act && (m.kind === "sub" || m.kind === "step") && beforeDecision && future(m.d)) items.push({e, m});
   }));
   items.sort((a,b) => dayMs(a.m.d) - dayMs(b.m.d));
   el.innerHTML = items.slice(0,4).map(({e, m}) => {
@@ -372,8 +375,9 @@ function renderTimeline(){
       }
       const est = e.st === "est", ms = milestones(e);
       const last = dayMs(ms[ms.length-1].d);
-      if(last > dayMs(e.sub)){
-        const l = xc(dayMs(e.sub)), r = xc(last);
+      const start = dayMs(e.sub || ms[0].d);
+      if(last > start){
+        const l = xc(start), r = xc(last);
         inner += `<div class="span" style="--c:${col};left:${l}px;width:${r-l}px;top:${top-1.5}px"></div>`;
       }
       ms.forEach((m, i) => {
@@ -439,12 +443,12 @@ document.getElementById("tl-scroll").addEventListener("scroll", hideTip, {passiv
 function renderTable(){
   const tb = document.getElementById("tbody");
   const rank = e => e.st==="roll" ? -1 : isDone(e) ? 1 : 0;
-  const key = e => { const n = nextAny(e); return n ? dayMs(n.d) : dayMs(e.sub); };
+  const key = e => { const n = nextAny(e); return n ? dayMs(n.d) : dayMs(e.sub || milestones(e)[0].d); };
   const rows = D.filter(visible).sort((a,b) => {
     const pa = rank(a), pb = rank(b);
     if(pa !== pb) return pa - pb;
     if(pa === -1) return 0;
-    return pa === 1 ? dayMs(b.sub) - dayMs(a.sub) : key(a) - key(b);
+    return pa === 1 ? dayMs(b.sub || milestones(b)[0].d) - dayMs(a.sub || milestones(a)[0].d) : key(a) - key(b);
   });
   document.getElementById("empty").hidden = rows.length > 0;
   tb.innerHTML = rows.map(e => {
@@ -460,7 +464,7 @@ function renderTable(){
       } else { left = "in review"; what = "awaiting " + nextAny(e).lbl.toLowerCase(); }
     }
     const pill = e.st === "ok" ? `<span class="pill ok">Confirmed</span>` : e.st === "roll" ? `<span class="pill rl">Rolling</span>` : `<span class="pill est">Estimated</span>`;
-    const dl = e.st === "roll" ? "When ready" : fmt(e.sub, est);
+    const dl = e.st === "roll" ? "When ready" : e.sub ? fmt(e.sub, est) : "Set by each workshop";
     const abs = e.abs ? `<span class="sub">abstract ${fmtShort(e.abs, est)}</span>` : "";
     const after = e.st === "roll" ? "—" : `<ul class="steps">${milestones(e).filter(m => m.kind !== "sub" && m.kind !== "abs").map(m =>
         `<li class="${future(m.d)?"":"done"}${m.act?" act":""}${m.kind==="notif"?" fin":""}"><span class="mono">${fmtShort(m.d, est)}</span> ${esc(m.lbl)}</li>`).join("")}</ul>`;
