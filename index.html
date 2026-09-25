@@ -70,6 +70,8 @@ header .lede{color:var(--muted);max-width:70ch}
 .legend span{display:inline-flex;gap:6px;align-items:center}
 .lg-dot{width:11px;height:11px;border-radius:50%;background:var(--ink)}
 .lg-est{width:11px;height:11px;border-radius:50%;border:2px dashed var(--ink);background:transparent}
+.lg-tick{width:3px;height:12px;border-radius:1px;background:var(--ink)}
+.lg-act{width:8px;height:8px;border-radius:50%;background:var(--ink);opacity:.75}
 .lg-band{width:22px;height:11px;background:var(--band);border-radius:2px}
 .lg-roll{width:22px;height:11px;border-radius:2px;background:repeating-linear-gradient(135deg,var(--t-papers) 0 2px,transparent 2px 6px);opacity:.6}
 
@@ -94,6 +96,8 @@ header .lede{color:var(--muted);max-width:70ch}
 .mk{position:absolute;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;background:var(--c);border:2px solid var(--c);cursor:pointer;padding:0;z-index:2}
 .mk.est{background:var(--surface);border-style:dashed}
 .mk.sec{width:8px;height:8px;margin-left:-4px;opacity:.75}
+.mk.tick{width:3px;height:12px;margin-left:-1.5px;border-radius:1px;border:0;opacity:.7}
+.mk.tick.final{width:4px;margin-left:-2px;opacity:1}
 .mk.past{opacity:.35}
 .mk:hover{transform:scale(1.25)}
 .today{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--today);z-index:1;pointer-events:none}
@@ -110,7 +114,13 @@ tr.past td{color:var(--faint)}
 tr.flash td{background:var(--hover)}
 td.dl{white-space:nowrap;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
 td.left{white-space:nowrap;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-td:nth-child(7){white-space:nowrap;min-width:96px}
+td:nth-child(6){white-space:nowrap;min-width:96px}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;font-size:13px;min-width:210px}
+.steps li{color:var(--muted)}
+.steps li .mono{display:inline-block;min-width:52px;color:var(--ink)}
+.steps li.act{color:var(--ink)}
+.steps li.fin{font-weight:700;color:var(--ink)}
+.steps li.done,.steps li.done .mono{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--line)}
 .trk{display:inline-flex;gap:6px;align-items:center;font-weight:600;white-space:nowrap}
 .trk i{width:9px;height:9px;border-radius:50%;background:var(--c);display:inline-block}
 .sub{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
@@ -165,12 +175,14 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
       <div class="legend">
         <span><i class="lg-dot"></i>Confirmed deadline</span>
         <span><i class="lg-est"></i>Estimated</span>
+        <span><i class="lg-act"></i>Author action</span>
+        <span><i class="lg-tick"></i>Review milestone</span>
         <span><i class="lg-band"></i>Conference</span>
         <span><i class="lg-roll"></i>Rolling submission</span>
       </div>
     </div>
     <div class="card tl-scroll" id="tl-scroll"><div class="tl" id="tl"></div></div>
-    <p class="hint">Each row has one lane per track (papers, posters, demos, DC, student volunteers). The thin line runs from submission to notification; small dots mark mandatory abstract deadlines. Click a marker to jump to it in the table.</p>
+    <p class="hint">Each row has one lane per track (papers, posters, demos, DC, student volunteers). The thin line runs from submission to the last milestone. Small dots are author actions (abstract, rebuttal, revision, camera-ready); thin ticks are review milestones such as reviews released or the final decision. Click a marker to jump to it in the table.</p>
   </section>
 
   <section aria-labelledby="h-tbl">
@@ -180,7 +192,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
     </div>
     <div class="card tbl-scroll">
       <table>
-        <thead><tr><th>Deadline</th><th>Left</th><th>Conference</th><th>Track · format</th><th>Notification</th><th>Camera-ready</th><th>Status</th><th>My project</th></tr></thead>
+        <thead><tr><th>Deadline</th><th>Next action</th><th>Conference</th><th>Track · format</th><th>Review &amp; publication</th><th>Status</th><th>My project</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
       <p class="empty" id="empty" hidden>No deadlines match these filters.</p>
@@ -218,10 +230,28 @@ const fmt = (s, est) => { if(!s) return "—"; const p = parse(s); return (est?"
 const fmtShort = (s, est) => { const p = parse(s); return (est?"~":"") + MON[p.m] + " " + p.d; };
 const localClose = s => new Date(aoeClose(s)).toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
 const NOW = Date.now();
-const isPast = e => e.sub && aoeClose(e.sub) < NOW;
-const daysLeft = e => Math.ceil((aoeClose(e.sub) - NOW) / 86400e3);
+const future = d => aoeClose(d) >= NOW;
+const isPast = e => e.sub && !future(e.sub);
+const daysTo = d => Math.ceil((aoeClose(d) - NOW) / 86400e3);
 const cvar = t => `var(${TRACKS[t].c})`;
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+
+/* Every dated milestone of an entry, in date order.
+   act = something the author must do (submit, rebut, revise, upload). */
+function milestones(e){
+  if(e._ms) return e._ms;
+  const ms = [];
+  if(e.abs) ms.push({d:e.abs, lbl:"Abstract due", act:true, kind:"abs"});
+  if(e.sub) ms.push({d:e.sub, lbl:"Submission", act:true, kind:"sub"});
+  (e.steps || []).forEach(s => ms.push({d:s.d, lbl:s.lbl, act:!!s.act, kind:"step"}));
+  if(e.notif) ms.push({d:e.notif, lbl:(e.steps||[]).some(s => s.d < e.notif) ? "Final decision" : "Notification", act:false, kind:"notif"});
+  if(e.cr) ms.push({d:e.cr, lbl:"Camera-ready", act:true, kind:"cr"});
+  ms.sort((a,b) => dayMs(a.d) - dayMs(b.d));
+  return (e._ms = ms);
+}
+const isDone = e => e.st !== "roll" && milestones(e).every(m => !future(m.d));
+const nextAction = e => milestones(e).find(m => m.act && future(m.d));
+const nextAny = e => milestones(e).find(m => future(m.d));
 
 (function(){
   const lv = window.LAST_VERIFIED;
@@ -246,10 +276,10 @@ const state = {
 const projects = store.get("dl-projects") || {};
 function persist(){ store.set("dl-filters", {confs:[...state.confs], tracks:[...state.tracks], known:LANES, past:state.past, est:state.est}); }
 
+const inFilters = e => state.confs.has(e.conf) && state.tracks.has(e.track) && (state.est || e.st !== "est");
 function visible(e){
-  if(!state.confs.has(e.conf) || !state.tracks.has(e.track)) return false;
-  if(e.st === "est" && !state.est) return false;
-  if(e.st !== "roll" && isPast(e) && !state.past) return false;
+  if(!inFilters(e)) return false;
+  if(isDone(e) && !state.past) return false;
   return true;
 }
 
@@ -276,18 +306,24 @@ document.getElementById("f-past").addEventListener("change", e => { state.past =
 document.getElementById("f-est").addEventListener("change", e => { state.est = e.target.checked; persist(); renderAll(); });
 
 /* ---------- coming up ---------- */
+// Submissions plus author actions during review (rebuttal, revision, resubmission).
 function renderNext(){
   const el = document.getElementById("next");
-  const up = D.filter(e => e.sub && !isPast(e) && state.confs.has(e.conf) && state.tracks.has(e.track) && (state.est || e.st !== "est"))
-    .sort((a,b) => dayMs(a.sub) - dayMs(b.sub)).slice(0,4);
-  el.innerHTML = up.map(e => {
-    const n = daysLeft(e), est = e.st === "est";
+  const items = [];
+  D.filter(inFilters).forEach(e => milestones(e).forEach(m => {
+    if(m.act && (m.kind === "sub" || m.kind === "step") && future(m.d)) items.push({e, m});
+  }));
+  items.sort((a,b) => dayMs(a.m.d) - dayMs(b.m.d));
+  el.innerHTML = items.slice(0,4).map(({e, m}) => {
+    const n = daysTo(m.d), est = e.st === "est";
+    const what = m.kind === "sub" ? "Submission" : m.lbl;
+    const extra = m.kind === "sub" && e.abs && future(e.abs) ? " · abstract " + fmtShort(e.abs, est) : "";
     return `<div class="nx" style="--c:${cvar(e.track)}">
       <span class="eyebrow">${esc(TRACKS[e.track].label)}${est?" · estimated":""}</span>
       <span class="d">${n}<small>day${n===1?"":"s"}</small></span>
       <span class="w">${esc(e.ed)} · ${esc(e.name)}</span>
-      <span class="m">${fmt(e.sub, est)}${e.abs && aoeClose(e.abs) > NOW ? " · abstract " + fmtShort(e.abs, est) : ""}</span>
-      ${est ? "" : `<span class="m">Closes ${esc(localClose(e.sub))} your time</span>`}
+      <span class="m"><b>${esc(what)}</b> · ${fmt(m.d, est)}${extra}</span>
+      ${est ? "" : `<span class="m">Closes ${esc(localClose(m.d))} your time</span>`}
     </div>`;
   }).join("") || `<p class="hint">No upcoming deadlines with these filters.</p>`;
 }
@@ -295,6 +331,7 @@ function renderNext(){
 /* ---------- timeline ---------- */
 const T0 = Date.UTC(2026,8,1), T1 = Date.UTC(2028,0,1), W = 1500;
 const x = ms => (ms - T0) / (T1 - T0) * W;
+const xc = ms => Math.min(W, Math.max(0, x(ms)));
 const LANE_H = 19, ROW_PAD = 8;
 
 function renderTimeline(){
@@ -331,15 +368,25 @@ function renderTimeline(){
         inner += `<button class="mk" type="button" data-id="${e.id}" style="--c:${col};left:${l}px;top:${top-6.5}px" aria-label="${esc(e.ed+" "+e.name)}"></button>`;
         return;
       }
-      const est = e.st === "est", past = isPast(e);
-      if(e.notif){
-        const l = x(dayMs(e.sub)), r = x(dayMs(e.notif));
+      const est = e.st === "est", ms = milestones(e);
+      const last = dayMs(ms[ms.length-1].d);
+      if(last > dayMs(e.sub)){
+        const l = xc(dayMs(e.sub)), r = xc(last);
         inner += `<div class="span" style="--c:${col};left:${l}px;width:${r-l}px;top:${top-1.5}px"></div>`;
       }
-      if(e.abs){
-        inner += `<button class="mk sec${est?" est":""}${aoeClose(e.abs)<NOW?" past":""}" type="button" data-id="${e.id}" data-abs="1" style="--c:${col};left:${x(dayMs(e.abs))}px;top:${top-4}px" aria-label="Abstract ${esc(e.ed+" "+e.name)}"></button>`;
-      }
-      inner += `<button class="mk${est?" est":""}${e.sec?" sec":""}${past?" past":""}" type="button" data-id="${e.id}" style="--c:${col};left:${x(dayMs(e.sub))}px;top:${top-(e.sec?4:6.5)}px" aria-label="${esc(e.ed+" "+e.name+" "+fmt(e.sub,est))}"></button>`;
+      ms.forEach((m, i) => {
+        const X = x(dayMs(m.d));
+        if(X < 0 || X > W) return;
+        const past = !future(m.d) ? " past" : "";
+        const label = `${e.ed} ${e.name}: ${m.lbl} ${fmt(m.d, est)}`;
+        if(m.kind === "sub"){
+          inner += `<button class="mk${est?" est":""}${e.sec?" sec":""}${past}" type="button" data-id="${e.id}" data-k="${i}" style="--c:${col};left:${X}px;top:${top-(e.sec?4:6.5)}px" aria-label="${esc(label)}"></button>`;
+        } else if(m.act){
+          inner += `<button class="mk sec${est?" est":""}${past}" type="button" data-id="${e.id}" data-k="${i}" style="--c:${col};left:${X}px;top:${top-4}px" aria-label="${esc(label)}"></button>`;
+        } else {
+          inner += `<button class="mk tick${m.kind==="notif"?" final":""}${past}" type="button" data-id="${e.id}" data-k="${i}" style="--c:${col};left:${X}px;top:${top-6}px" aria-label="${esc(label)}"></button>`;
+        }
+      });
     });
     if(NOW > T0 && NOW < T1) inner += `<div class="today" style="left:${tx}px"></div>`;
     rows += `<div class="tl-row" style="height:${H}px"><div class="lab"><b>${esc(c.name)}</b><span>${esc(c.where)}</span></div><div class="area">${inner}</div></div>`;
@@ -354,8 +401,12 @@ function showTip(btn){
   const est = e.st === "est";
   let when;
   if(e.st === "roll") when = "Rolling submission";
-  else if(btn.dataset.abs) when = "Mandatory abstract: " + fmt(e.abs, est);
-  else when = "Submission: " + fmt(e.sub, est) + (e.notif ? " · notification " + fmtShort(e.notif, est) : "");
+  else {
+    const m = milestones(e)[+btn.dataset.k];
+    when = m.lbl + ": " + fmt(m.d, est);
+    const nx = nextAny(e);
+    if(m.kind === "sub" && nx && nx !== m) when += " · next: " + nx.lbl.toLowerCase() + " " + fmtShort(nx.d, est);
+  }
   tip.innerHTML = `<b>${esc(e.ed)} · ${esc(e.name)}</b><span class="mono">${esc(when)}</span>${est?"<br><span class=\"mono\">Estimated date</span>":""}`;
   tip.hidden = false;
   const r = btn.getBoundingClientRect();
@@ -385,30 +436,38 @@ document.getElementById("tl-scroll").addEventListener("scroll", hideTip, {passiv
 /* ---------- table ---------- */
 function renderTable(){
   const tb = document.getElementById("tbody");
-  const rank = e => e.st==="roll" ? -1 : isPast(e) ? 1 : 0;
+  const rank = e => e.st==="roll" ? -1 : isDone(e) ? 1 : 0;
+  const key = e => { const n = nextAny(e); return n ? dayMs(n.d) : dayMs(e.sub); };
   const rows = D.filter(visible).sort((a,b) => {
     const pa = rank(a), pb = rank(b);
     if(pa !== pb) return pa - pb;
-    if(!a.sub || !b.sub) return 0;
-    return pa === 1 ? dayMs(b.sub) - dayMs(a.sub) : dayMs(a.sub) - dayMs(b.sub);
+    if(pa === -1) return 0;
+    return pa === 1 ? dayMs(b.sub) - dayMs(a.sub) : key(a) - key(b);
   });
   document.getElementById("empty").hidden = rows.length > 0;
   tb.innerHTML = rows.map(e => {
-    const est = e.st === "est", past = e.st !== "roll" && isPast(e);
-    let left, cls = "";
+    const est = e.st === "est", done = isDone(e);
+    let left, what = "", cls = "";
     if(e.st === "roll") left = "rolling";
-    else if(past) left = "passed";
-    else { const n = daysLeft(e); left = n + " d"; if(n <= 21) cls = "urgent"; }
+    else if(done) left = "passed";
+    else {
+      const a = nextAction(e);
+      if(a){
+        const n = daysTo(a.d); left = n + " d"; if(n <= 21) cls = "urgent";
+        what = a.kind === "sub" ? "" : a.lbl;
+      } else { left = "in review"; what = "awaiting " + nextAny(e).lbl.toLowerCase(); }
+    }
     const pill = e.st === "ok" ? `<span class="pill ok">Confirmed</span>` : e.st === "roll" ? `<span class="pill rl">Rolling</span>` : `<span class="pill est">Estimated</span>`;
     const dl = e.st === "roll" ? "When ready" : fmt(e.sub, est);
     const abs = e.abs ? `<span class="sub">abstract ${fmtShort(e.abs, est)}</span>` : "";
-    return `<tr id="r-${e.id}" class="${past?"past":""}">
+    const after = e.st === "roll" ? "—" : `<ul class="steps">${milestones(e).filter(m => m.kind !== "sub" && m.kind !== "abs").map(m =>
+        `<li class="${future(m.d)?"":"done"}${m.act?" act":""}${m.kind==="notif"?" fin":""}"><span class="mono">${fmtShort(m.d, est)}</span> ${esc(m.lbl)}</li>`).join("")}</ul>`;
+    return `<tr id="r-${e.id}" class="${done?"past":""}">
       <td class="dl">${dl}${abs}</td>
-      <td class="left ${cls}">${left}</td>
+      <td class="left ${cls}">${left}${what ? `<span class="sub">${esc(what)}</span>` : ""}</td>
       <td><b>${esc(e.ed)}</b></td>
       <td><span class="trk" style="--c:${cvar(e.track)}"><i></i>${esc(e.name)}</span><span class="sub">${esc(e.fmt)}</span></td>
-      <td class="left">${e.notif ? fmt(e.notif, est) : "—"}</td>
-      <td class="left">${e.cr ? fmt(e.cr, est) : "—"}</td>
+      <td>${after}</td>
       <td>${pill}</td>
       <td><input id="p-${e.id}" type="text" placeholder="Target work…" aria-label="Target project for ${esc(e.ed+" "+e.name)}" value="${esc(projects[e.id]||"")}"></td>
     </tr>`;
