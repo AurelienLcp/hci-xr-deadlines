@@ -5,7 +5,7 @@
    st (status):  "ok"   = confirmed from the official call
                  "est"  = estimated from the previous edition
                  "roll" = rolling submissions, no deadline
-   track:        "papers" | "posters" | "demos" | "dc"
+   track:        "papers" | "posters" | "demos" | "dc" | "sv"
    abs:          mandatory abstract deadline (optional)
    notif / cr:   notification and camera-ready dates (optional)
    sec: true     draws a smaller marker (secondary paper type)
@@ -40,6 +40,8 @@ window.DEADLINES = [
    fmt:"2027 call not yet published. In 2026: submission Dec 15, notification Jan 19."},
   {id:"vr28p", conf:"ieeevr", ed:"IEEE VR 2028", track:"papers", name:"Papers", abs:"2027-08-23", sub:"2027-08-30", notif:"2027-11-29", st:"est",
    fmt:"Estimated from the 2027 schedule (abstract one week before)."},
+  {id:"vr27sv", conf:"ieeevr", ed:"IEEE VR 2027", track:"sv", name:"Student volunteers", sub:"2027-01-09", notif:"2027-01-30", st:"ok",
+   fmt:"Applications open Dec 1. About 25–30 h of work + orientation on Feb 26. Free registration, which cannot be used to register a paper."},
 
   // CHI
   {id:"chi27p", conf:"chi", ed:"CHI 2027", track:"papers", name:"Papers", sub:"2026-09-10", notif:"2026-12-17", cr:"2027-02-18", st:"ok",
@@ -52,6 +54,8 @@ window.DEADLINES = [
    fmt:"No Doctoral Consortium at CHI 2027. SRC: up to 5 pp.; graduate students submit single-author (no advisor), not anonymized."},
   {id:"chi28p", conf:"chi", ed:"CHI 2028", track:"papers", name:"Papers", sub:"2027-09-09", notif:"2027-12-16", st:"est",
    fmt:"Estimated: the CHI papers deadline has fallen between Sep 10 and Sep 14 in recent editions."},
+  {id:"chi27sv", conf:"chi", ed:"CHI 2027", track:"sv", name:"Student volunteers (lottery)", sub:"2027-01-22", notif:"2027-01-25", st:"est",
+   fmt:"Lottery on new.chisv.org. In 2026: opened Oct 15, closed Jan 23, results Jan 26; accepted volunteers confirm within two weeks."},
 
   // ICMI
   {id:"icmi27p", conf:"icmi", ed:"ICMI 2027", track:"papers", name:"Long & short papers", abs:"2027-04-12", sub:"2027-04-19", notif:"2027-07-01", cr:"2027-07-22", st:"est",
@@ -74,6 +78,8 @@ window.DEADLINES = [
    fmt:"In 2026: June 25."},
   {id:"ismar27d", conf:"ismar", ed:"ISMAR 2027", track:"demos", name:"Demos", sub:"2027-07-16", st:"est",
    fmt:"In 2026: July 17."},
+  {id:"ismar27sv", conf:"ismar", ed:"ISMAR 2027", track:"sv", name:"Student volunteers", sub:"2027-07-14", notif:"2027-07-28", st:"est",
+   fmt:"In 2026: opened June 8, closed July 15, notification July 29. About 20 h; PhD students prioritised."},
 
   // CSCW
   {id:"cscwp", conf:"cscw", ed:"CSCW 2027+", track:"papers", name:"Papers (rolling)", st:"roll",
@@ -84,18 +90,24 @@ window.DEADLINES = [
    fmt:"4-page extended abstract + 1-page logistics summary. In 2026: May 15."},
   {id:"cscw27dc", conf:"cscw", ed:"CSCW 2027", track:"dc", name:"Doctoral Consortium", sub:"2027-05-14", notif:"2027-06-11", st:"est",
    fmt:"4 pp. single-author + 2-page CV + advisor letter. In 2026: May 15."},
+  {id:"cscw27sv", conf:"cscw", ed:"CSCW 2027", track:"sv", name:"Student volunteers (lottery)", sub:"2027-05-31", notif:"2027-06-14", st:"est",
+   fmt:"Lottery on new.chisv.org. In 2026: opened Mar 18, closed June 1, notification June 15. 20 h; travel and housing not covered."},
 
   // VRST
   {id:"vrst26p", conf:"vrst", ed:"VRST 2026", track:"papers", name:"Papers", abs:"2026-06-17", sub:"2026-06-24", notif:"2026-08-28", cr:"2026-09-25", st:"ok",
    fmt:"2026 cycle closed (camera-ready Sep 25)."},
   {id:"vrst26pd", conf:"vrst", ed:"VRST 2026", track:"posters", name:"Posters", sub:"2026-09-04", notif:"2026-09-22", cr:"2026-09-25", st:"ok",
    fmt:"2026 cycle closed."},
+  {id:"vrst26sv", conf:"vrst", ed:"VRST 2026", track:"sv", name:"Student volunteers", sub:"2026-09-30", notif:"2026-10-05", st:"ok",
+   fmt:"20–25 h, arrive in Sendai by Nov 15. Free registration, meals and social events."},
   {id:"vrst27p", conf:"vrst", ed:"VRST 2027", track:"papers", name:"Papers", abs:"2027-06-16", sub:"2027-06-23", notif:"2027-08-27", st:"est",
    fmt:"4–9 pp. ACM double-column, double-blind. In 2026: abstract June 17, paper June 24."},
   {id:"vrst27po", conf:"vrst", ed:"VRST 2027", track:"posters", name:"Posters", sub:"2027-09-03", notif:"2027-09-21", st:"est",
    fmt:"2 pp. incl. refs, not anonymized. In 2026: Sep 4."},
   {id:"vrst27d", conf:"vrst", ed:"VRST 2027", track:"demos", name:"Demos", sub:"2027-09-03", notif:"2027-09-21", st:"est",
-   fmt:"2 pp. incl. refs. In 2026: Sep 4 (VRST has no DC)."}
+   fmt:"2 pp. incl. refs. In 2026: Sep 4 (VRST has no DC)."},
+  {id:"vrst27sv", conf:"vrst", ed:"VRST 2027", track:"sv", name:"Student volunteers", sub:"2027-09-29", notif:"2027-10-04", st:"est",
+   fmt:"In 2026: Sep 30, notification Oct 5."}
 ];
 
 window.NOTES = [
@@ -103,35 +115,41 @@ window.NOTES = [
     "Single review cycle: a paper is accepted as TVCG, accepted as conference paper, or rejected.",
     "Rejected papers are no longer moved to posters automatically; submit to the posters track (Dec 7) instead.",
     "All senior authors must volunteer as reviewers, or risk desk rejection.",
-    "Workshops set their own deadlines; notifications by Jan 7, 2027 at the latest."],
-   src:[["Papers","https://ieeevr.org/2027/contribute/papers/"],["Posters","https://ieeevr.org/2027/contribute/posters/"],["Demos","https://ieeevr.org/2027/contribute/demos/"],["DC 2026","http://ieeevr.org/2026/contribute/doctoral-consortium/"]]},
+    "Workshops set their own deadlines; notifications by Jan 7, 2027 at the latest.",
+    "Student volunteers: the free registration cannot be used to register an accepted paper."],
+   src:[["Papers","https://ieeevr.org/2027/contribute/papers/"],["Posters","https://ieeevr.org/2027/contribute/posters/"],["Demos","https://ieeevr.org/2027/contribute/demos/"],["DC 2026","http://ieeevr.org/2026/contribute/doctoral-consortium/"],["SVs","https://ieeevr.org/2027/contribute/student-volunteers/"]]},
   {conf:"chi", title:"CHI 2027 · Pittsburgh", items:[
     "Papers closed Sep 10, 2026; reviews Nov 5, revise & resubmit Dec 3, decisions Dec 17.",
     "Posters, demos and SRC are all due Jan 21, 2027. A given piece of work can go to only one of them.",
     "No Doctoral Consortium in 2027. The seven categories are Papers, Posters, Interactive Demos, Panels, Workshops, Meet-ups and SRC.",
     "Workshop papers: around Feb 11, 2027, depending on each workshop.",
-    "Posters: four authors must sign up as reviewers."],
-   src:[["Papers","https://chi2027.acm.org/authors/papers/"],["Posters","https://chi2027.acm.org/authors/posters/"],["Demos","https://chi2027.acm.org/authors/interactive-demos/"],["SRC","https://chi2027.acm.org/authors/student-research-competition/"]]},
+    "Posters: four authors must sign up as reviewers.",
+    "Student volunteers are picked by lottery on new.chisv.org; the 2027 call is not out yet."],
+   src:[["Papers","https://chi2027.acm.org/authors/papers/"],["Posters","https://chi2027.acm.org/authors/posters/"],["Demos","https://chi2027.acm.org/authors/interactive-demos/"],["SRC","https://chi2027.acm.org/authors/student-research-competition/"],["SVs 2026","https://chi2026.acm.org/2025/10/16/call-for-svs/"]]},
   {conf:"icmi", title:"ICMI 2027", items:[
     "2027 call not yet published; dates estimated from ICMI 2026 (Naples, Oct 5–9).",
     "Some 2026 deadlines were 23:59 PDT rather than AoE; check the 2027 call.",
-    "Long and short papers share one deadline, with the abstract about ten days earlier."],
+    "Long and short papers share one deadline, with the abstract about ten days earlier.",
+    "No student volunteer call was published on the ICMI 2026 site."],
    src:[["2026 dates","https://icmi.acm.org/2026/important-dates/"]]},
   {conf:"ismar", title:"ISMAR 2027", items:[
     "2027 call not yet published; dates estimated from ISMAR 2026 (Bari, Oct 5–9).",
     "Papers are due in March, about six months before the conference: the earliest deadline of the autumn venues.",
-    "2026 sequence: DC in early June, posters in late June, demos in mid-July."],
-   src:[["ISMAR 2026","https://www.ieeeismar.net/2026/"],["DC 2026","https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"]]},
+    "2026 sequence: DC in early June, posters in late June, demos in mid-July.",
+    "Student volunteers in 2026: applications June 8 – July 15, about 20 h of work, registration waived."],
+   src:[["ISMAR 2026","https://www.ieeeismar.net/2026/"],["DC 2026","https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"],["SVs 2026","https://www.ieeeismar.net/2026/call-for-student-volunteers/"]]},
   {conf:"cscw", title:"CSCW 2027 and beyond", items:[
     "Papers move to rolling submission: PACM HCI/CSCW, or ToCHI if in CSCW scope.",
     "No deadline for a given edition: a paper accepted after the program is set is presented the following year.",
     "Posters, demos and DC keep a fixed deadline (May 15 in 2026), estimated here as mid-May 2027.",
-    "CSCW 2027 venue and dates not announced yet."],
-   src:[["CSCW 2027+","https://cscw.acm.org/rolling.html"],["Posters 2026","https://cscw.acm.org/2026/posters.html"],["DC 2026","https://cscw.acm.org/2026/dc.html"]]},
+    "CSCW 2027 venue and dates not announced yet.",
+    "Student volunteers: lottery on new.chisv.org, 20 h of work; travel, housing and meals at your own cost (lunch provided)."],
+   src:[["CSCW 2027+","https://cscw.acm.org/rolling.html"],["Posters 2026","https://cscw.acm.org/2026/posters.html"],["DC 2026","https://cscw.acm.org/2026/dc.html"],["SVs 2026","https://cscw.acm.org/2026/sv.html"]]},
   {conf:"vrst", title:"VRST", items:[
     "VRST 2026 (Sendai, Nov 16–18): all deadlines have passed.",
     "VRST 2027 estimate: papers late June, posters and demos early September, conference mid-November.",
     "No Doctoral Consortium in 2026.",
-    "Posters and demos: 2 pp. incl. refs, light feedback, decision in about three weeks."],
-   src:[["Papers 2026","https://vrst.acm.org/vrst2026/cfp/"],["Posters/Demos 2026","https://vrst.acm.org/vrst2026/call-for-posters-demos/"]]}
+    "Posters and demos: 2 pp. incl. refs, light feedback, decision in about three weeks.",
+    "VRST 2026 student volunteer applications close Sep 30, 2026."],
+   src:[["Papers 2026","https://vrst.acm.org/vrst2026/cfp/"],["Posters/Demos 2026","https://vrst.acm.org/vrst2026/call-for-posters-demos/"],["SVs 2026","https://vrst.acm.org/vrst2026/call-for-student-volunteers/"]]}
 ];
