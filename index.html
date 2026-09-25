@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Submission deadlines for CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters, demos and doctoral consortia.">
+<title>HCI & XR Deadlines 2026–27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#F4F6F9; --surface:#FFFFFF; --ink:#18202E; --muted:#5A6477; --faint:#8A93A4;
+  --line:#DCE1E9; --line-2:#EBEEF3; --accent:#2346B8; --today:#D02F4A;
+  --t-papers:#2F5BD3; --t-posters:#C25A12; --t-demos:#0E8466; --t-dc:#8A3FBF;
+  --band:#E4E9F2; --band-est:#EEF1F6; --hover:#EEF2FA;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11151D; --surface:#181D27; --ink:#E6EAF2; --muted:#A2ABBD; --faint:#737D90;
+    --line:#2B3342; --line-2:#222936; --accent:#8FA8FF; --today:#FF6B81;
+    --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0;
+    --band:#232B3A; --band-est:#1C2230; --hover:#1F2636;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11151D; --surface:#181D27; --ink:#E6EAF2; --muted:#A2ABBD; --faint:#737D90;
+  --line:#2B3342; --line-2:#222936; --accent:#8FA8FF; --today:#FF6B81;
+  --t-papers:#7B9BFF; --t-posters:#F0934D; --t-demos:#3CC79F; --t-dc:#C08AF0;
+  --band:#232B3A; --band-est:#1C2230; --hover:#1F2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);font-stretch:85%;margin:0;text-wrap:balance;line-height:1.1}
+h1{font-size:clamp(28px,4.2vw,40px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:21px;font-weight:700}
+h3{font-size:16px;font-weight:700}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:10px}
+header .lede{color:var(--muted);max-width:70ch}
+.aoe{font-size:13.5px;color:var(--muted);max-width:90ch}
+.aoe b{color:var(--ink)}
+
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.nx{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;border-top:3px solid var(--c)}
+.nx .d{font-family:var(--f-display);font-stretch:80%;font-size:28px;font-weight:800;line-height:1}
+.nx .d small{font-size:14px;font-weight:600;color:var(--muted);margin-left:4px}
+.nx .w{font-weight:700}
+.nx .m{font-size:13px;color:var(--muted)}
+
+.controls{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-start}
+.fg{display:flex;flex-direction:column;gap:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:4px 11px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed="false"] .sw{opacity:.3}
+.chip:focus-visible,.mk:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toggle{display:inline-flex;gap:8px;align-items:center;font-size:14px;color:var(--muted);cursor:pointer}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.lg-dot{width:11px;height:11px;border-radius:50%;background:var(--ink)}
+.lg-est{width:11px;height:11px;border-radius:50%;border:2px dashed var(--ink);background:transparent}
+.lg-band{width:22px;height:11px;background:var(--band);border-radius:2px}
+.lg-roll{width:22px;height:11px;border-radius:2px;background:repeating-linear-gradient(135deg,var(--t-papers) 0 2px,transparent 2px 6px);opacity:.6}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.tl-scroll{overflow-x:auto;position:relative}
+.tl{--lab:132px;--W:1500px;width:calc(var(--lab) + var(--W));position:relative}
+.tl-head{display:flex;height:34px;border-bottom:1px solid var(--line);position:relative}
+.tl-head .lab,.tl-row .lab{width:var(--lab);flex:none;position:sticky;left:0;z-index:3;background:var(--surface);border-right:1px solid var(--line)}
+.tl-head .area,.tl-row .area{position:relative;width:var(--W);flex:none}
+.mo{position:absolute;top:0;height:100%;border-left:1px solid var(--line-2);font-family:var(--f-mono);font-size:11px;color:var(--muted);padding:9px 0 0 5px;white-space:nowrap}
+.mo.yr{border-left-color:var(--line);color:var(--ink);font-weight:600}
+.tl-row{display:flex;border-bottom:1px solid var(--line-2)}
+.tl-row:last-child{border-bottom:0}
+.tl-row .lab{padding:8px 10px;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.tl-row .lab b{font-family:var(--f-display);font-stretch:85%;font-size:15px}
+.tl-row .lab span{font-size:11.5px;color:var(--muted);line-height:1.25}
+.grid{position:absolute;top:0;bottom:0;border-left:1px solid var(--line-2)}
+.band{position:absolute;top:3px;bottom:3px;background:var(--band);border-radius:3px;display:flex;align-items:flex-end;justify-content:center;font-size:10.5px;font-family:var(--f-mono);color:var(--muted);padding-bottom:2px;white-space:nowrap;overflow:visible}
+.band.est{background:var(--band-est);border:1px dashed var(--faint)}
+.roll{position:absolute;height:8px;border-radius:2px;background:repeating-linear-gradient(135deg,var(--t-papers) 0 2px,transparent 2px 6px);opacity:.55}
+.span{position:absolute;height:3px;border-radius:2px;background:var(--c);opacity:.28}
+.mk{position:absolute;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;background:var(--c);border:2px solid var(--c);cursor:pointer;padding:0;z-index:2}
+.mk.est{background:var(--surface);border-style:dashed}
+.mk.sec{width:8px;height:8px;margin-left:-4px;opacity:.75}
+.mk.past{opacity:.35}
+.mk:hover{transform:scale(1.25)}
+.today{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--today);z-index:1;pointer-events:none}
+.today-lbl{position:absolute;top:2px;transform:translateX(4px);font-family:var(--f-mono);font-size:10.5px;font-weight:600;color:var(--today);white-space:nowrap}
+.tip{position:fixed;z-index:20;max-width:300px;background:var(--ink);color:var(--bg);border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.35;pointer-events:none}
+.tip b{display:block;font-weight:700}
+.tip .mono{font-size:12px;opacity:.85}
+
+.tbl-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:14px}
+th{text-align:left;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
+tr.past td{color:var(--faint)}
+tr.flash td{background:var(--hover)}
+td.dl{white-space:nowrap;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
+td.left{white-space:nowrap;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+td:nth-child(7){white-space:nowrap;min-width:96px}
+.trk{display:inline-flex;gap:6px;align-items:center;font-weight:600;white-space:nowrap}
+.trk i{width:9px;height:9px;border-radius:50%;background:var(--c);display:inline-block}
+.sub{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;white-space:nowrap;border:1px solid}
+.pill.ok{color:var(--t-demos);border-color:var(--t-demos)}
+.pill.est{color:var(--t-posters);border-color:var(--t-posters);border-style:dashed}
+.pill.rl{color:var(--t-papers);border-color:var(--t-papers)}
+.urgent{color:var(--today)}
+td input{width:100%;min-width:150px;font:inherit;font-size:13.5px;padding:4px 7px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink)}
+.empty{padding:18px;color:var(--muted)}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.note{padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.note ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.note .src{font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.note a{color:var(--accent)}
+section{display:flex;flex-direction:column;gap:12px}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px}
+.hint{font-size:13px;color:var(--muted)}
+footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow" id="verified">Submission planner</span>
+    <h1>HCI &amp; XR Deadlines 2026–27</h1>
+    <p class="lede">CHI, CSCW, IEEE VR, ISMAR, VRST and ICMI: papers, posters and late-breaking work, demos and doctoral consortia, from the current cycle through the end of 2027. Solid markers come from the official calls; dashed markers are estimated from the previous edition until the call is published.</p>
+    <p class="aoe">All deadlines are <b>Anywhere on Earth (UTC−12)</b>. A deadline on day D closes at <b>11:59 UTC the following day</b>, which is <b id="local-close">–</b> in your time zone. Countdowns on this page account for this.</p>
+  </header>
+
+  <section aria-labelledby="h-next">
+    <h2 id="h-next">Coming up</h2>
+    <div class="next" id="next"></div>
+  </section>
+
+  <div class="controls">
+    <div class="fg"><span class="eyebrow">Conferences</span><div class="chips" id="f-conf"></div></div>
+    <div class="fg"><span class="eyebrow">Tracks</span><div class="chips" id="f-track"></div></div>
+    <div class="fg"><span class="eyebrow">Display</span>
+      <label class="toggle"><input type="checkbox" id="f-past"> Show past deadlines</label>
+      <label class="toggle"><input type="checkbox" id="f-est" checked> Include estimated dates</label>
+    </div>
+  </div>
+
+  <section aria-labelledby="h-tl">
+    <div class="sec-head">
+      <h2 id="h-tl">Timeline, Sep 2026 → Dec 2027</h2>
+      <div class="legend">
+        <span><i class="lg-dot"></i>Confirmed deadline</span>
+        <span><i class="lg-est"></i>Estimated</span>
+        <span><i class="lg-band"></i>Conference</span>
+        <span><i class="lg-roll"></i>Rolling submission</span>
+      </div>
+    </div>
+    <div class="card tl-scroll" id="tl-scroll"><div class="tl" id="tl"></div></div>
+    <p class="hint">Each row has one lane per track (papers, posters, demos, DC). The thin line runs from submission to notification; small dots mark mandatory abstract deadlines. Click a marker to jump to it in the table.</p>
+  </section>
+
+  <section aria-labelledby="h-tbl">
+    <div class="sec-head">
+      <h2 id="h-tbl">All deadlines</h2>
+      <span class="hint">The “My project” column is saved in this browser only.</span>
+    </div>
+    <div class="card tbl-scroll">
+      <table>
+        <thead><tr><th>Deadline</th><th>Left</th><th>Conference</th><th>Track · format</th><th>Notification</th><th>Camera-ready</th><th>Status</th><th>My project</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <p class="empty" id="empty" hidden>No deadlines match these filters.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-notes">
+    <h2 id="h-notes">Notes by conference</h2>
+    <div class="notes" id="notes"></div>
+  </section>
+
+  <footer>Always confirm dates on the official call before submitting. Estimated dates are shifted from the previous edition and will change when calls are published.</footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script src="data.js"></script>
+
+<script>
+const TRACKS = {
+  papers:  {label:"Papers",          c:"--t-papers"},
+  posters: {label:"Posters / LBW",   c:"--t-posters"},
+  demos:   {label:"Demos",           c:"--t-demos"},
+  dc:      {label:"DC / students",   c:"--t-dc"}
+};
+const LANES = ["papers","posters","demos","dc"];
+const CONFS = window.CONFS, D = window.DEADLINES, NOTES = window.NOTES;
+
+/* ---------- helpers ---------- */
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return {y,m:m-1,d}; };
+const dayMs = s => { const p = parse(s); return Date.UTC(p.y,p.m,p.d); };
+const aoeClose = s => dayMs(s) + 36*3600e3 - 60e3; // 23:59 at UTC-12 = 11:59 UTC next day
+const fmt = (s, est) => { if(!s) return "—"; const p = parse(s); return (est?"~":"") + MON[p.m] + " " + p.d + ", " + p.y; };
+const fmtShort = (s, est) => { const p = parse(s); return (est?"~":"") + MON[p.m] + " " + p.d; };
+const localClose = s => new Date(aoeClose(s)).toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+const NOW = Date.now();
+const isPast = e => e.sub && aoeClose(e.sub) < NOW;
+const daysLeft = e => Math.ceil((aoeClose(e.sub) - NOW) / 86400e3);
+const cvar = t => `var(${TRACKS[t].c})`;
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+
+(function(){
+  const lv = window.LAST_VERIFIED;
+  if(lv) document.getElementById("verified").textContent = "Submission planner · verified " + fmt(lv);
+  const ex = new Date(Date.UTC(2026,11,7,11,59)); // a winter example
+  document.getElementById("local-close").textContent =
+    ex.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}) + " (" + (Intl.DateTimeFormat().resolvedOptions().timeZone || "local time") + ", winter)";
+})();
+
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const saved = store.get("dl-filters") || {};
+const state = {
+  confs: new Set(saved.confs || CONFS.map(c=>c.id)),
+  tracks: new Set(saved.tracks || LANES),
+  past: !!saved.past,
+  est: saved.est !== false
+};
+const projects = store.get("dl-projects") || {};
+function persist(){ store.set("dl-filters", {confs:[...state.confs], tracks:[...state.tracks], past:state.past, est:state.est}); }
+
+function visible(e){
+  if(!state.confs.has(e.conf) || !state.tracks.has(e.track)) return false;
+  if(e.st === "est" && !state.est) return false;
+  if(e.st !== "roll" && isPast(e) && !state.past) return false;
+  return true;
+}
+
+/* ---------- filters ---------- */
+function chip(label, on, color, onClick){
+  const b = document.createElement("button");
+  b.className = "chip"; b.type = "button";
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  if(color){ b.style.setProperty("--c", color); b.innerHTML = `<i class="sw"></i>${esc(label)}`; }
+  else b.textContent = label;
+  b.addEventListener("click", onClick);
+  return b;
+}
+function renderFilters(){
+  const fc = document.getElementById("f-conf"); fc.innerHTML = "";
+  CONFS.forEach(c => fc.appendChild(chip(c.name, state.confs.has(c.id), null, () => toggle(state.confs, c.id))));
+  const ft = document.getElementById("f-track"); ft.innerHTML = "";
+  LANES.forEach(t => ft.appendChild(chip(TRACKS[t].label, state.tracks.has(t), cvar(t), () => toggle(state.tracks, t))));
+  document.getElementById("f-past").checked = state.past;
+  document.getElementById("f-est").checked = state.est;
+}
+function toggle(set, v){ set.has(v) ? set.delete(v) : set.add(v); persist(); renderAll(); }
+document.getElementById("f-past").addEventListener("change", e => { state.past = e.target.checked; persist(); renderAll(); });
+document.getElementById("f-est").addEventListener("change", e => { state.est = e.target.checked; persist(); renderAll(); });
+
+/* ---------- coming up ---------- */
+function renderNext(){
+  const el = document.getElementById("next");
+  const up = D.filter(e => e.sub && !isPast(e) && state.confs.has(e.conf) && state.tracks.has(e.track) && (state.est || e.st !== "est"))
+    .sort((a,b) => dayMs(a.sub) - dayMs(b.sub)).slice(0,4);
+  el.innerHTML = up.map(e => {
+    const n = daysLeft(e), est = e.st === "est";
+    return `<div class="nx" style="--c:${cvar(e.track)}">
+      <span class="eyebrow">${esc(TRACKS[e.track].label)}${est?" · estimated":""}</span>
+      <span class="d">${n}<small>day${n===1?"":"s"}</small></span>
+      <span class="w">${esc(e.ed)} · ${esc(e.name)}</span>
+      <span class="m">${fmt(e.sub, est)}${e.abs && aoeClose(e.abs) > NOW ? " · abstract " + fmtShort(e.abs, est) : ""}</span>
+      ${est ? "" : `<span class="m">Closes ${esc(localClose(e.sub))} your time</span>`}
+    </div>`;
+  }).join("") || `<p class="hint">No upcoming deadlines with these filters.</p>`;
+}
+
+/* ---------- timeline ---------- */
+const T0 = Date.UTC(2026,8,1), T1 = Date.UTC(2028,0,1), W = 1500;
+const x = ms => (ms - T0) / (T1 - T0) * W;
+const LANE_H = 19, ROW_PAD = 8;
+
+function renderTimeline(){
+  const tl = document.getElementById("tl");
+  tl.style.setProperty("--W", W + "px");
+  const months = [];
+  for(let y=2026, m=8; y<2028; ){ months.push([y,m]); m++; if(m>11){ m=0; y++; } }
+  const tx = x(NOW);
+  let head = `<div class="tl-head"><div class="lab"></div><div class="area">`;
+  months.forEach(([y,m]) => {
+    head += `<div class="mo${m===0?" yr":""}" style="left:${x(Date.UTC(y,m,1))}px">${MON[m]}${m===0||(y===2026&&m===8)?" "+y:""}</div>`;
+  });
+  if(NOW > T0 && NOW < T1) head += `<div class="today-lbl" style="left:${tx}px">today</div>`;
+  head += `</div></div>`;
+
+  let rows = "";
+  const activeLanes = LANES.filter(t => state.tracks.has(t));
+  CONFS.filter(c => state.confs.has(c.id)).forEach(c => {
+    const H = Math.max(1, activeLanes.length) * LANE_H + ROW_PAD * 2;
+    let inner = "";
+    months.forEach(([y,m]) => { inner += `<div class="grid" style="left:${x(Date.UTC(y,m,1))}px"></div>`; });
+    c.bands.forEach(b => {
+      if(b.est && !state.est) return;
+      const l = x(dayMs(b.s)), r = x(dayMs(b.e) + 86400e3);
+      inner += `<div class="band${b.est?" est":""}" style="left:${l}px;width:${Math.max(6, r-l)}px" title="${esc(b.lbl)}"><span>${esc(b.lbl)}</span></div>`;
+    });
+    D.filter(e => e.conf === c.id && visible(e)).forEach(e => {
+      const lane = activeLanes.indexOf(e.track);
+      const top = ROW_PAD + lane * LANE_H + LANE_H/2;
+      const col = cvar(e.track);
+      if(e.st === "roll"){
+        const l = Math.max(0, x(NOW));
+        inner += `<div class="roll" style="left:${l}px;width:${W-l}px;top:${top-4}px" title="Rolling submission (PACM HCI/CSCW)"></div>`;
+        inner += `<button class="mk" type="button" data-id="${e.id}" style="--c:${col};left:${l}px;top:${top-6.5}px" aria-label="${esc(e.ed+" "+e.name)}"></button>`;
+        return;
+      }
+      const est = e.st === "est", past = isPast(e);
+      if(e.notif){
+        const l = x(dayMs(e.sub)), r = x(dayMs(e.notif));
+        inner += `<div class="span" style="--c:${col};left:${l}px;width:${r-l}px;top:${top-1.5}px"></div>`;
+      }
+      if(e.abs){
+        inner += `<button class="mk sec${est?" est":""}${aoeClose(e.abs)<NOW?" past":""}" type="button" data-id="${e.id}" data-abs="1" style="--c:${col};left:${x(dayMs(e.abs))}px;top:${top-4}px" aria-label="Abstract ${esc(e.ed+" "+e.name)}"></button>`;
+      }
+      inner += `<button class="mk${est?" est":""}${e.sec?" sec":""}${past?" past":""}" type="button" data-id="${e.id}" style="--c:${col};left:${x(dayMs(e.sub))}px;top:${top-(e.sec?4:6.5)}px" aria-label="${esc(e.ed+" "+e.name+" "+fmt(e.sub,est))}"></button>`;
+    });
+    if(NOW > T0 && NOW < T1) inner += `<div class="today" style="left:${tx}px"></div>`;
+    rows += `<div class="tl-row" style="height:${H}px"><div class="lab"><b>${esc(c.name)}</b><span>${esc(c.where)}</span></div><div class="area">${inner}</div></div>`;
+  });
+  tl.innerHTML = head + rows;
+  wireMarkers();
+}
+
+const tip = document.getElementById("tip");
+function showTip(btn){
+  const e = D.find(d => d.id === btn.dataset.id); if(!e) return;
+  const est = e.st === "est";
+  let when;
+  if(e.st === "roll") when = "Rolling submission";
+  else if(btn.dataset.abs) when = "Mandatory abstract: " + fmt(e.abs, est);
+  else when = "Submission: " + fmt(e.sub, est) + (e.notif ? " · notification " + fmtShort(e.notif, est) : "");
+  tip.innerHTML = `<b>${esc(e.ed)} · ${esc(e.name)}</b><span class="mono">${esc(when)}</span>${est?"<br><span class=\"mono\">Estimated date</span>":""}`;
+  tip.hidden = false;
+  const r = btn.getBoundingClientRect();
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  const left = Math.min(Math.max(8, r.left + r.width/2 - tw/2), window.innerWidth - tw - 8);
+  let top = r.top - th - 8; if(top < 8) top = r.bottom + 8;
+  tip.style.left = left + "px"; tip.style.top = top + "px";
+}
+function hideTip(){ tip.hidden = true; }
+function wireMarkers(){
+  document.querySelectorAll(".mk").forEach(b => {
+    b.addEventListener("mouseenter", () => showTip(b));
+    b.addEventListener("focus", () => showTip(b));
+    b.addEventListener("mouseleave", hideTip);
+    b.addEventListener("blur", hideTip);
+    b.addEventListener("click", () => {
+      const row = document.getElementById("r-" + b.dataset.id);
+      if(!row) return;
+      row.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"center"});
+      row.classList.add("flash"); setTimeout(() => row.classList.remove("flash"), 1600);
+    });
+  });
+}
+window.addEventListener("scroll", hideTip, {passive:true});
+document.getElementById("tl-scroll").addEventListener("scroll", hideTip, {passive:true});
+
+/* ---------- table ---------- */
+function renderTable(){
+  const tb = document.getElementById("tbody");
+  const rank = e => e.st==="roll" ? -1 : isPast(e) ? 1 : 0;
+  const rows = D.filter(visible).sort((a,b) => {
+    const pa = rank(a), pb = rank(b);
+    if(pa !== pb) return pa - pb;
+    if(!a.sub || !b.sub) return 0;
+    return pa === 1 ? dayMs(b.sub) - dayMs(a.sub) : dayMs(a.sub) - dayMs(b.sub);
+  });
+  document.getElementById("empty").hidden = rows.length > 0;
+  tb.innerHTML = rows.map(e => {
+    const est = e.st === "est", past = e.st !== "roll" && isPast(e);
+    let left, cls = "";
+    if(e.st === "roll") left = "rolling";
+    else if(past) left = "passed";
+    else { const n = daysLeft(e); left = n + " d"; if(n <= 21) cls = "urgent"; }
+    const pill = e.st === "ok" ? `<span class="pill ok">Confirmed</span>` : e.st === "roll" ? `<span class="pill rl">Rolling</span>` : `<span class="pill est">Estimated</span>`;
+    const dl = e.st === "roll" ? "When ready" : fmt(e.sub, est);
+    const abs = e.abs ? `<span class="sub">abstract ${fmtShort(e.abs, est)}</span>` : "";
+    return `<tr id="r-${e.id}" class="${past?"past":""}">
+      <td class="dl">${dl}${abs}</td>
+      <td class="left ${cls}">${left}</td>
+      <td><b>${esc(e.ed)}</b></td>
+      <td><span class="trk" style="--c:${cvar(e.track)}"><i></i>${esc(e.name)}</span><span class="sub">${esc(e.fmt)}</span></td>
+      <td class="left">${e.notif ? fmt(e.notif, est) : "—"}</td>
+      <td class="left">${e.cr ? fmt(e.cr, est) : "—"}</td>
+      <td>${pill}</td>
+      <td><input id="p-${e.id}" type="text" placeholder="Target work…" aria-label="Target project for ${esc(e.ed+" "+e.name)}" value="${esc(projects[e.id]||"")}"></td>
+    </tr>`;
+  }).join("");
+  tb.querySelectorAll("input").forEach(inp => inp.addEventListener("input", () => {
+    projects[inp.id.slice(2)] = inp.value; store.set("dl-projects", projects);
+  }));
+}
+
+/* ---------- notes ---------- */
+function renderNotes(){
+  document.getElementById("notes").innerHTML = NOTES.filter(n => state.confs.has(n.conf)).map(n => `
+    <div class="card note">
+      <h3>${esc(n.title)}</h3>
+      <ul>${n.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      <div class="src">Sources: ${n.src.map(([l,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>
+    </div>`).join("");
+}
+
+function renderAll(){ renderFilters(); renderNext(); renderTimeline(); renderTable(); renderNotes(); }
+renderAll();
+requestAnimationFrame(() => { document.getElementById("tl-scroll").scrollLeft = Math.max(0, x(NOW) - 60); });
+</script>
+</body>
+</html>
