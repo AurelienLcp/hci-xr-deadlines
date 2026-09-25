@@ -114,7 +114,7 @@ tr.past td{color:var(--faint)}
 tr.flash td{background:var(--hover)}
 td.dl{white-space:nowrap;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:600}
 td.left{white-space:nowrap;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-td:nth-child(6){white-space:nowrap;min-width:96px}
+td:nth-child(7){white-space:nowrap;min-width:96px}
 .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;font-size:13px;min-width:210px}
 .steps li{color:var(--muted)}
 .steps li .mono{display:inline-block;min-width:52px;color:var(--ink)}
@@ -129,7 +129,17 @@ td:nth-child(6){white-space:nowrap;min-width:96px}
 .pill.est{color:var(--t-posters);border-color:var(--t-posters);border-style:dashed}
 .pill.rl{color:var(--t-papers);border-color:var(--t-papers)}
 .urgent{color:var(--today)}
-td input{width:100%;min-width:150px;font:inherit;font-size:13.5px;padding:4px 7px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink)}
+.c-plan{width:36px;text-align:center;padding-inline:6px}
+.star{font:inherit;font-size:18px;line-height:1;background:none;border:0;cursor:pointer;color:var(--faint);padding:2px 4px;border-radius:4px}
+.star[aria-pressed="true"]{color:var(--t-ws)}
+.star:hover{color:var(--ink)}
+.star:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+tr.mine td{background:var(--hover)}
+.plan-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.btn{font:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--ink);background:var(--surface);color:var(--ink);border-radius:6px;padding:5px 12px;cursor:pointer}
+.btn:disabled{border-color:var(--line);color:var(--faint);cursor:not-allowed}
+.nx .mine{color:var(--t-ws)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .empty{padding:18px;color:var(--muted)}
 
 .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
@@ -166,6 +176,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
     <div class="fg"><span class="eyebrow">Display</span>
       <label class="toggle"><input type="checkbox" id="f-past"> Show past deadlines</label>
       <label class="toggle"><input type="checkbox" id="f-est" checked> Include estimated dates</label>
+      <label class="toggle"><input type="checkbox" id="f-plan"> Only my plan <span id="plan-n"></span></label>
     </div>
   </div>
 
@@ -188,11 +199,14 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
   <section aria-labelledby="h-tbl">
     <div class="sec-head">
       <h2 id="h-tbl">All deadlines</h2>
-      <span class="hint">The “My project” column is saved in this browser only.</span>
+      <div class="plan-bar">
+        <span class="hint" id="plan-hint">Click ☆ to add a deadline to your plan.</span>
+        <button class="btn" id="ics" type="button">Export my plan to calendar (.ics)</button>
+      </div>
     </div>
     <div class="card tbl-scroll">
       <table>
-        <thead><tr><th>Deadline</th><th>Next action</th><th>Conference</th><th>Track · format</th><th>Review &amp; publication</th><th>Status</th><th>My project</th></tr></thead>
+        <thead><tr><th class="c-plan"><span class="sr">In my plan</span>★</th><th>Deadline</th><th>Next action</th><th>Conference</th><th>Track · format</th><th>Review &amp; publication</th><th>Status</th></tr></thead>
         <tbody id="tbody"></tbody>
       </table>
       <p class="empty" id="empty" hidden>No deadlines match these filters.</p>
@@ -274,12 +288,22 @@ const state = {
   // tracks added after a visitor saved their filters are shown by default
   tracks: new Set((saved.tracks || LANES).concat(LANES.filter(t => !(saved.known || ["papers","posters","demos","dc"]).includes(t)))),
   past: !!saved.past,
-  est: saved.est !== false
+  est: saved.est !== false,
+  plan: !!saved.plan
 };
-const projects = store.get("dl-projects") || {};
-function persist(){ store.set("dl-filters", {confs:[...state.confs], tracks:[...state.tracks], known:LANES, past:state.past, est:state.est}); }
+// "My plan": the deadlines this visitor follows (saved in this browser).
+const plan = new Set(store.get("dl-plan") || []);
+(function migrateOldNotes(){ // the former "My project" notes become plan entries
+  const old = store.get("dl-projects");
+  if(old && !store.get("dl-plan")){
+    Object.keys(old).forEach(id => { if(String(old[id]).trim()) plan.add(id); });
+    store.set("dl-plan", [...plan]);
+  }
+})();
+function togglePlan(id){ plan.has(id) ? plan.delete(id) : plan.add(id); store.set("dl-plan", [...plan]); renderAll(); }
+function persist(){ store.set("dl-filters", {confs:[...state.confs], tracks:[...state.tracks], known:LANES, past:state.past, est:state.est, plan:state.plan}); }
 
-const inFilters = e => state.confs.has(e.conf) && state.tracks.has(e.track) && (state.est || e.st !== "est");
+const inFilters = e => state.confs.has(e.conf) && state.tracks.has(e.track) && (state.est || e.st !== "est") && (!state.plan || plan.has(e.id));
 function visible(e){
   if(!inFilters(e)) return false;
   if(isDone(e) && !state.past) return false;
@@ -303,10 +327,18 @@ function renderFilters(){
   LANES.forEach(t => ft.appendChild(chip(TRACKS[t].label, state.tracks.has(t), cvar(t), () => toggle(state.tracks, t))));
   document.getElementById("f-past").checked = state.past;
   document.getElementById("f-est").checked = state.est;
+  document.getElementById("f-plan").checked = state.plan;
+  document.getElementById("plan-n").textContent = plan.size ? `(${plan.size})` : "";
+  const n = D.filter(e => plan.has(e.id)).length;
+  document.getElementById("plan-hint").textContent = n
+    ? `${n} deadline${n>1?"s":""} in your plan. Export them with reminders 7 days and 1 day before each author deadline.`
+    : "Click ☆ on a row to add it to your plan, then export it to your calendar.";
+  document.getElementById("ics").disabled = n === 0;
 }
 function toggle(set, v){ set.has(v) ? set.delete(v) : set.add(v); persist(); renderAll(); }
 document.getElementById("f-past").addEventListener("change", e => { state.past = e.target.checked; persist(); renderAll(); });
 document.getElementById("f-est").addEventListener("change", e => { state.est = e.target.checked; persist(); renderAll(); });
+document.getElementById("f-plan").addEventListener("change", e => { state.plan = e.target.checked; persist(); renderAll(); });
 
 /* ---------- coming up ---------- */
 // Submissions plus author actions during review (rebuttal, revision, resubmission).
@@ -324,7 +356,7 @@ function renderNext(){
     const what = m.kind === "sub" ? "Submission" : m.lbl;
     const extra = m.kind === "sub" && e.abs && future(e.abs) ? " · abstract " + fmtShort(e.abs, est) : "";
     return `<div class="nx" style="--c:${cvar(e.track)}">
-      <span class="eyebrow">${esc(TRACKS[e.track].label)}${est?" · estimated":""}</span>
+      <span class="eyebrow">${plan.has(e.id)?'<span class="mine">★ </span>':""}${esc(TRACKS[e.track].label)}${est?" · estimated":""}</span>
       <span class="d">${n}<small>day${n===1?"":"s"}</small></span>
       <span class="w">${esc(e.ed)} · ${esc(e.name)}</span>
       <span class="m"><b>${esc(what)}</b> · ${fmt(m.d, est)}${extra}</span>
@@ -450,7 +482,9 @@ function renderTable(){
     if(pa === -1) return 0;
     return pa === 1 ? dayMs(b.sub || milestones(b)[0].d) - dayMs(a.sub || milestones(a)[0].d) : key(a) - key(b);
   });
-  document.getElementById("empty").hidden = rows.length > 0;
+  const empty = document.getElementById("empty");
+  empty.hidden = rows.length > 0;
+  empty.textContent = state.plan && plan.size === 0 ? "Your plan is empty. Untick “Only my plan”, then click ☆ on the deadlines you want to follow." : "No deadlines match these filters.";
   tb.innerHTML = rows.map(e => {
     const est = e.st === "est", done = isDone(e);
     let left, what = "", cls = "";
@@ -468,18 +502,21 @@ function renderTable(){
     const abs = e.abs ? `<span class="sub">abstract ${fmtShort(e.abs, est)}</span>` : "";
     const after = e.st === "roll" ? "—" : `<ul class="steps">${milestones(e).filter(m => m.kind !== "sub" && m.kind !== "abs").map(m =>
         `<li class="${future(m.d)?"":"done"}${m.act?" act":""}${m.kind==="notif"?" fin":""}"><span class="mono">${fmtShort(m.d, est)}</span> ${esc(m.lbl)}</li>`).join("")}</ul>`;
-    return `<tr id="r-${e.id}" class="${done?"past":""}">
+    const mine = plan.has(e.id);
+    return `<tr id="r-${e.id}" class="${done?"past":""}${mine?" mine":""}">
+      <td class="c-plan"><button class="star" type="button" data-id="${e.id}" aria-pressed="${mine}" title="${mine?"Remove from":"Add to"} my plan" aria-label="${mine?"Remove":"Add"} ${esc(e.ed+" "+e.name)} ${mine?"from":"to"} my plan">${mine?"★":"☆"}</button></td>
       <td class="dl">${dl}${abs}</td>
       <td class="left ${cls}">${left}${what ? `<span class="sub">${esc(what)}</span>` : ""}</td>
       <td><b>${esc(e.ed)}</b></td>
       <td><span class="trk" style="--c:${cvar(e.track)}"><i></i>${esc(e.name)}</span><span class="sub">${esc(e.fmt)}</span></td>
       <td>${after}</td>
       <td>${pill}</td>
-      <td><input id="p-${e.id}" type="text" placeholder="Target work…" aria-label="Target project for ${esc(e.ed+" "+e.name)}" value="${esc(projects[e.id]||"")}"></td>
     </tr>`;
   }).join("");
-  tb.querySelectorAll("input").forEach(inp => inp.addEventListener("input", () => {
-    projects[inp.id.slice(2)] = inp.value; store.set("dl-projects", projects);
+  tb.querySelectorAll(".star").forEach(b => b.addEventListener("click", () => {
+    togglePlan(b.dataset.id);
+    const again = document.querySelector(`.star[data-id="${b.dataset.id}"]`);
+    if(again) again.focus({preventScroll:true});
   }));
 }
 
@@ -492,6 +529,48 @@ function renderNotes(){
       <div class="src">Sources: ${n.src.map(([l,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>
     </div>`).join("");
 }
+
+/* ---------- calendar export ---------- */
+function icsEscape(t){ return String(t).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n"); }
+function icsFold(line){ // lines are limited to 75 octets
+  const out = []; let cur = "";
+  for(const ch of line){
+    if(new TextEncoder().encode(cur + ch).length > 74){ out.push(cur); cur = " " + ch; } else cur += ch;
+  }
+  out.push(cur); return out.join("\r\n");
+}
+const icsStamp = ms => new Date(ms).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+function buildIcs(){
+  const L = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//hci-xr-deadlines//EN","CALSCALE:GREGORIAN","X-WR-CALNAME:HCI & XR deadlines – my plan"];
+  const now = icsStamp(Date.now());
+  D.filter(e => plan.has(e.id)).forEach(e => {
+    const est = e.st === "est";
+    milestones(e).filter(m => future(m.d)).forEach(m => { // past dates are left out
+      const title = `${est?"~ ":""}${e.ed} ${e.name}: ${m.lbl}`;
+      const desc = `${e.fmt}\n${est ? "Estimated from the previous edition: check the official call.\n" : ""}All deadlines are Anywhere on Earth.\nhttps://aurelienlcp.github.io/hci-xr-deadlines/`;
+      L.push("BEGIN:VEVENT", `UID:${e.id}-${m.kind}-${m.d}@hci-xr-deadlines`, `DTSTAMP:${now}`);
+      if(m.act){
+        const close = aoeClose(m.d);
+        L.push(`DTSTART:${icsStamp(close - 30*60e3)}`, `DTEND:${icsStamp(close)}`);
+      } else {
+        const d = m.d.replace(/-/g,""), next = new Date(dayMs(m.d) + 86400e3).toISOString().slice(0,10).replace(/-/g,"");
+        L.push(`DTSTART;VALUE=DATE:${d}`, `DTEND;VALUE=DATE:${next}`, "TRANSP:TRANSPARENT");
+      }
+      L.push(icsFold("SUMMARY:" + icsEscape(title)), icsFold("DESCRIPTION:" + icsEscape(desc)));
+      if(m.act) ["-P7D","-P1D"].forEach(t => L.push("BEGIN:VALARM","ACTION:DISPLAY",icsFold("DESCRIPTION:" + icsEscape(title)),`TRIGGER:${t}`,"END:VALARM"));
+      L.push("END:VEVENT");
+    });
+  });
+  L.push("END:VCALENDAR");
+  return L.join("\r\n") + "\r\n";
+}
+document.getElementById("ics").addEventListener("click", () => {
+  const url = URL.createObjectURL(new Blob([buildIcs()], {type:"text/calendar;charset=utf-8"}));
+  const a = document.createElement("a");
+  a.href = url; a.download = "hci-xr-deadlines-plan.ics";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
 
 function renderAll(){ renderFilters(); renderNext(); renderTimeline(); renderTable(); renderNotes(); }
 renderAll();
