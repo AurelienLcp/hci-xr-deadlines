@@ -39,6 +39,26 @@ Edit `data.js` directly on GitHub (pencil icon) and commit. The page redeploys a
 - Update `window.LAST_VERIFIED` so visitors know how fresh the data is.
 - To add a new edition (for example CHI 2028 posters), copy an existing entry and give it a unique `id`.
 
+## Automatic watch
+
+Two mechanisms keep the dates current. Neither changes the live page without review.
+
+**Daily GitHub Action** (`.github/workflows/watch-calls.yml` + `scripts/watch.py`)
+- Checks the pages listed in `scripts/watchlist.json` every day at 06:17 UTC.
+- `new_editions`: pages that do not exist yet (ISMAR 2027, CHI 2028…). When one goes online, it opens an issue labelled `new-call`.
+- `calls`: published calls. When the dates after the anchor text change (for example an extension), it opens an issue labelled `date-change` listing added and removed dates.
+- The first run only records a baseline. Run it by hand from **Actions → Watch conference calls → Run workflow**.
+- Once a new call is online, move its entry from `new_editions` to `calls` in `scripts/watchlist.json`.
+
+**Monthly Claude review**
+- A scheduled Claude task reads the official calls and the open `new-call` / `date-change` issues, then opens a pull request updating `data.js` with sources. Review and merge it to publish.
+
+Test the watcher locally without creating issues:
+
+```bash
+WATCH_DRY_RUN=1 python3 scripts/watch.py
+```
+
 ## Notes
 
 - The “My project” column and the filters are saved in each visitor's browser (localStorage). They are not shared and are not stored in the repository.

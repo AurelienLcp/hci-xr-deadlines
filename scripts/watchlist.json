@@ -1,0 +1,22 @@
+{
+  "_help": "new_editions: pages that do not exist yet; an issue opens when one goes live. calls: published calls; an issue opens when the dates listed after 'anchor' change. Move an entry from new_editions to calls once its call is published.",
+  "new_editions": [
+    {"name": "IEEE VR 2027 Doctoral Consortium", "url": "https://ieeevr.org/2027/contribute/doctoral-consortium/"},
+    {"name": "ISMAR 2027", "url": "https://www.ieeeismar.net/2027/"},
+    {"name": "ICMI 2027", "url": "https://icmi.acm.org/2027/"},
+    {"name": "VRST 2027", "url": "https://vrst.acm.org/vrst2027/"},
+    {"name": "CSCW 2027", "url": "https://cscw.acm.org/2027/"},
+    {"name": "CHI 2028", "url": "https://chi2028.acm.org/"},
+    {"name": "IEEE VR 2028", "url": "https://ieeevr.org/2028/"}
+  ],
+  "calls": [
+    {"name": "CHI 2027 Papers", "url": "https://chi2027.acm.org/authors/papers/", "anchor": "Important Dates"},
+    {"name": "CHI 2027 Posters", "url": "https://chi2027.acm.org/authors/posters/", "anchor": "Important Dates"},
+    {"name": "CHI 2027 Interactive Demos", "url": "https://chi2027.acm.org/authors/interactive-demos/", "anchor": "Important Dates"},
+    {"name": "CHI 2027 Student Research Competition", "url": "https://chi2027.acm.org/authors/student-research-competition/", "anchor": "Important Dates"},
+    {"name": "IEEE VR 2027 Papers", "url": "https://ieeevr.org/2027/contribute/papers/", "anchor": "Important Dates"},
+    {"name": "IEEE VR 2027 Posters", "url": "https://ieeevr.org/2027/contribute/posters/", "anchor": "Important Dates"},
+    {"name": "IEEE VR 2027 Research Demos", "url": "https://ieeevr.org/2027/contribute/demos/", "anchor": "Important Dates"},
+    {"name": "CSCW rolling papers", "url": "https://cscw.acm.org/rolling.html", "anchor": "CALL FOR PAPERS"}
+  ]
+}
