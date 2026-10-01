@@ -14,7 +14,7 @@
    sec: true     draws a smaller marker (secondary paper type)
    ===================================================================== */
 
-window.LAST_VERIFIED = "2026-09-25";
+window.LAST_VERIFIED = "2026-10-01";
 
 window.CONFS = [
   {id:"ieeevr", name:"IEEE VR", where:"Melbourne · Feb 27 – Mar 3, 2027",
@@ -23,7 +23,7 @@ window.CONFS = [
    bands:[{s:"2027-05-10",e:"2027-05-14",lbl:"CHI 2027"}]},
   {id:"icmi", name:"ICMI", where:"2027 venue not announced",
    bands:[{s:"2027-10-04",e:"2027-10-08",lbl:"~ICMI 2027",est:true}]},
-  {id:"ismar", name:"ISMAR", where:"2027 venue not announced",
+  {id:"ismar", name:"ISMAR", where:"2027: Kobe · dates not announced",
    bands:[{s:"2027-10-04",e:"2027-10-08",lbl:"~ISMAR 2027",est:true}]},
   {id:"cscw", name:"CSCW", where:"2027 venue not announced",
    bands:[{s:"2027-10-09",e:"2027-11-20",lbl:"CSCW 2027 · autumn?",est:true}]},
@@ -69,7 +69,7 @@ window.DEADLINES = [
   {id:"chi27sv", conf:"chi", ed:"CHI 2027", track:"sv", name:"Student volunteers (lottery)", sub:"2027-01-22", notif:"2027-01-25", st:"est",
    fmt:"Lottery on new.chisv.org. In 2026: opened Oct 15, closed Jan 23, results Jan 26; accepted volunteers confirm within two weeks."},
   {id:"chi27wsp", conf:"chi", ed:"CHI 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2026-10-01", notif:"2026-11-19", cr:"2026-12-17",
-   steps:[{d:"2026-11-26", lbl:"E-rights form", act:true}, {d:"2026-12-03", lbl:"TAPS upload", act:true}], st:"ok",
+   steps:[{d:"2026-11-26", lbl:"E-rights form", act:true}, {d:"2026-12-03", lbl:"TAPS upload", act:true}, {d:"2026-12-14", lbl:"Update submission info", act:true}, {d:"2027-03-04", lbl:"Registration", act:true}], st:"ok",
    fmt:"Workshop jurors apply by Sep 28. The call for participation and the list of accepted workshops go out Dec 17."},
 
   // ICMI
@@ -159,13 +159,13 @@ window.NOTES = [
     "No student volunteer call was published on the ICMI 2026 site.",
     "Workshop proposals in 2026: Jan 23 (after extension), notification Feb 13."],
    src:[["2026 dates","https://icmi.acm.org/2026/important-dates/"],["Workshops 2026","https://icmi.acm.org/2026/workshops/"]]},
-  {conf:"ismar", title:"ISMAR 2027", items:[
-    "2027 call not yet published; dates estimated from ISMAR 2026 (Bari, Oct 5–9).",
+  {conf:"ismar", title:"ISMAR 2027 · Kobe", items:[
+    "ISMAR 2027 will be held in Kobe, Japan; conference dates and calls not announced yet. Dates estimated from ISMAR 2026 (Bari, Oct 5–9).",
     "Papers are due in March, about six months before the conference: the earliest deadline of the autumn venues.",
     "2026 sequence: DC in early June, posters in late June, demos in mid-July.",
     "Student volunteers in 2026: applications June 8 – July 15, about 20 h of work, registration waived.",
     "Workshop proposals in 2026: May 22, notification June 5."],
-   src:[["ISMAR 2026","https://www.ieeeismar.net/2026/"],["DC 2026","https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"],["SVs 2026","https://www.ieeeismar.net/2026/call-for-student-volunteers/"],["Workshops 2026","https://www.ieeeismar.net/2026/call-for-workshops/"]]},
+   src:[["ISMAR 2027","https://www.ieeeismar.net/2027/"],["ISMAR 2026","https://www.ieeeismar.net/2026/"],["DC 2026","https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"],["SVs 2026","https://www.ieeeismar.net/2026/call-for-student-volunteers/"],["Workshops 2026","https://www.ieeeismar.net/2026/call-for-workshops/"]]},
   {conf:"cscw", title:"CSCW 2027 and beyond", items:[
     "Papers move to rolling submission: PACM HCI/CSCW, or ToCHI if in CSCW scope.",
     "No deadline for a given edition: a paper accepted after the program is set is presented the following year.",

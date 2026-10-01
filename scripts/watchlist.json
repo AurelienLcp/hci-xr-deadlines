@@ -2,7 +2,6 @@
   "_help": "new_editions: pages that do not exist yet; an issue opens when one goes live. calls: published calls; an issue opens when the dates listed after 'anchor' change. Move an entry from new_editions to calls once its call is published.",
   "new_editions": [
     {"name": "IEEE VR 2027 Doctoral Consortium", "url": "https://ieeevr.org/2027/contribute/doctoral-consortium/"},
-    {"name": "ISMAR 2027", "url": "https://www.ieeeismar.net/2027/"},
     {"name": "ICMI 2027", "url": "https://icmi.acm.org/2027/"},
     {"name": "VRST 2027", "url": "https://vrst.acm.org/vrst2027/"},
     {"name": "CSCW 2027", "url": "https://cscw.acm.org/2027/"},
@@ -20,6 +19,7 @@
     {"name": "IEEE VR 2027 Student Volunteers", "url": "https://ieeevr.org/2027/contribute/student-volunteers/", "anchor": ""},
     {"name": "CHI 2027 Workshops", "url": "https://chi2027.acm.org/authors/workshops/", "anchor": "Important Dates"},
     {"name": "IEEE VR 2027 Workshops", "url": "https://ieeevr.org/2027/contribute/workshops/", "anchor": ""},
+    {"name": "ISMAR 2027", "url": "https://www.ieeeismar.net/2027/", "anchor": "Important Deadlines"},
     {"name": "CSCW rolling papers", "url": "https://cscw.acm.org/rolling.html", "anchor": "CALL FOR PAPERS"}
   ]
 }
