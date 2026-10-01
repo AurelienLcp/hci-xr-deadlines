@@ -5,7 +5,7 @@
     {"name": "ICMI 2027", "url": "https://icmi.acm.org/2027/"},
     {"name": "VRST 2027", "url": "https://vrst.acm.org/vrst2027/"},
     {"name": "CSCW 2027", "url": "https://cscw.acm.org/2027/"},
-    {"name": "CHI 2028", "url": "https://chi2028.acm.org/"},
+    {"name": "CHI 2028 Papers", "url": "https://chi2028.acm.org/authors/papers/"},
     {"name": "IEEE VR 2028", "url": "https://ieeevr.org/2028/"}
   ],
   "calls": [
@@ -20,6 +20,7 @@
     {"name": "CHI 2027 Workshops", "url": "https://chi2027.acm.org/authors/workshops/", "anchor": "Important Dates"},
     {"name": "IEEE VR 2027 Workshops", "url": "https://ieeevr.org/2027/contribute/workshops/", "anchor": ""},
     {"name": "ISMAR 2027", "url": "https://www.ieeeismar.net/2027/", "anchor": "Important Deadlines"},
+    {"name": "CHI 2028", "url": "https://chi2028.acm.org/", "anchor": ""},
     {"name": "CSCW rolling papers", "url": "https://cscw.acm.org/rolling.html", "anchor": "CALL FOR PAPERS"}
   ]
 }
