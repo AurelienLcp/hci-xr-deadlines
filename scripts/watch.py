@@ -157,7 +157,8 @@ def main():
         new_state[url] = sig
         old = state.get(url)
         print(f"[call] {c['name']}: {len(sig['dates'])} dates, anchor {'found' if sig['anchor_found'] else 'missing'}")
-        if baseline or not old:
+        # A page just moved from new_editions only has {"live": ...}: record it, no issue.
+        if baseline or not old or "hash" not in old:
             continue
         changed = sig["dates"] != old.get("dates") if (sig["dates"] or old.get("dates")) else sig["hash"] != old.get("hash")
         if changed:
