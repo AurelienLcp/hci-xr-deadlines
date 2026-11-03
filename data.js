@@ -14,19 +14,19 @@
    sec: true     draws a smaller marker (secondary paper type)
    ===================================================================== */
 
-window.LAST_VERIFIED = "2026-10-01";
+window.LAST_VERIFIED = "2026-11-01";
 
 window.CONFS = [
   {id:"ieeevr", name:"IEEE VR", where:"Melbourne · Feb 27 – Mar 3, 2027",
    bands:[{s:"2027-02-27",e:"2027-03-03",lbl:"VR 2027"}]},
-  {id:"chi", name:"CHI", where:"Pittsburgh · May 10–14, 2027 · 2028: Cape Town, May 6–12",
-   bands:[{s:"2027-05-10",e:"2027-05-14",lbl:"CHI 2027"},{s:"2028-05-06",e:"2028-05-12",lbl:"CHI 2028"}]},
+  {id:"chi", name:"CHI", where:"Pittsburgh · May 10–14, 2027 · 2028: Cape Town, May 8–12",
+   bands:[{s:"2027-05-10",e:"2027-05-14",lbl:"CHI 2027"},{s:"2028-05-08",e:"2028-05-12",lbl:"CHI 2028"}]},
   {id:"icmi", name:"ICMI", where:"2027 venue not announced",
    bands:[{s:"2027-10-04",e:"2027-10-08",lbl:"~ICMI 2027",est:true}]},
   {id:"ismar", name:"ISMAR", where:"2027: Kobe · dates not announced",
    bands:[{s:"2027-10-04",e:"2027-10-08",lbl:"~ISMAR 2027",est:true}]},
-  {id:"cscw", name:"CSCW", where:"2027 venue not announced",
-   bands:[{s:"2027-10-09",e:"2027-11-20",lbl:"CSCW 2027 · autumn?",est:true}]},
+  {id:"cscw", name:"CSCW", where:"Philadelphia · Oct 16–20, 2027",
+   bands:[{s:"2027-10-16",e:"2027-10-20",lbl:"CSCW 2027"}]},
   {id:"vrst", name:"VRST", where:"2026: Sendai, Nov 16–18",
    bands:[{s:"2026-11-16",e:"2026-11-18",lbl:"VRST 2026"},{s:"2027-11-15",e:"2027-11-17",lbl:"~VRST 2027",est:true}]}
 ];
@@ -40,8 +40,8 @@ window.DEADLINES = [
    fmt:"2-page extended abstract incl. refs, anonymized. Title and abstract due Dec 2."},
   {id:"vr27d", conf:"ieeevr", ed:"IEEE VR 2027", track:"demos", name:"Research demos", sub:"2026-12-07", notif:"2027-01-07", cr:"2027-01-12", st:"ok",
    fmt:"2-page abstract + layout schematic + 1–2 min video."},
-  {id:"vr27dc", conf:"ieeevr", ed:"IEEE VR 2027", track:"dc", name:"Doctoral Consortium", sub:"2026-12-14", notif:"2027-01-18", cr:"2027-01-27", st:"est",
-   fmt:"2027 call not yet published. In 2026: submission Dec 15, notification Jan 19."},
+  {id:"vr27dc", conf:"ieeevr", ed:"IEEE VR 2027", track:"dc", name:"Doctoral Consortium", sub:"2026-11-10", notif:"2026-12-22", cr:"2027-01-05", st:"ok",
+   fmt:"2-page position paper incl. refs (VGTC format) + 2-page CV, not anonymized. Optional publication in the abstracts and workshops proceedings."},
   {id:"vr28p", conf:"ieeevr", ed:"IEEE VR 2028", track:"papers", name:"Papers", abs:"2027-08-23", sub:"2027-08-30", notif:"2028-01-06", cr:"2028-01-11",
    steps:[{d:"2027-11-29", lbl:"Initial decision"}, {d:"2027-12-30", lbl:"Revision due", act:true}], st:"est",
    fmt:"Estimated from the 2027 schedule (abstract one week before)."},
@@ -55,7 +55,7 @@ window.DEADLINES = [
    steps:[{d:"2026-10-26", lbl:"Desk-reject notices (approx.)"}, {d:"2026-11-05", lbl:"Reviews released"}, {d:"2026-12-03", lbl:"Resubmission due", act:true}, {d:"2027-01-07", lbl:"E-rights form", act:true}, {d:"2027-01-14", lbl:"TAPS upload", act:true}, {d:"2027-03-04", lbl:"Registration + presentation video", act:true}], st:"ok",
    fmt:"5,000–8,000 words encouraged; under 5,000 counts as a short paper. No separate abstract deadline."},
   {id:"chi27po", conf:"chi", ed:"CHI 2027", track:"posters", name:"Posters", sub:"2027-01-21", notif:"2027-02-18", cr:"2027-03-18",
-   steps:[{d:"2027-02-25", lbl:"E-rights form", act:true}, {d:"2027-03-04", lbl:"TAPS upload", act:true}], st:"ok",
+   steps:[{d:"2027-02-25", lbl:"E-rights form", act:true}, {d:"2027-03-04", lbl:"TAPS upload", act:true}, {d:"2027-03-18", lbl:"Presentation video", act:true}], st:"ok",
    fmt:"Up to 4 pp. single-column excl. refs + A0 poster, anonymized. Non-archival: can be reused in a later paper."},
   {id:"chi27d", conf:"chi", ed:"CHI 2027", track:"demos", name:"Interactive Demos", sub:"2027-01-21", notif:"2027-02-18", cr:"2027-03-18",
    steps:[{d:"2027-02-25", lbl:"E-rights form", act:true}, {d:"2027-03-04", lbl:"TAPS upload", act:true}], st:"ok",
@@ -65,7 +65,7 @@ window.DEADLINES = [
    fmt:"No Doctoral Consortium at CHI 2027. SRC: up to 5 pp.; graduate students submit single-author (no advisor), not anonymized."},
   {id:"chi28p", conf:"chi", ed:"CHI 2028", track:"papers", name:"Papers", sub:"2027-09-09", notif:"2027-12-16",
    steps:[{d:"2027-11-04", lbl:"Reviews released"}, {d:"2027-12-02", lbl:"Resubmission due", act:true}], st:"est",
-   fmt:"Estimated: the CHI papers deadline has fallen between Sep 10 and Sep 14 in recent editions. CHI 2028: Cape Town, May 6–12, 2028."},
+   fmt:"Estimated: the CHI papers deadline has fallen between Sep 10 and Sep 14 in recent editions. CHI 2028: Cape Town, May 8–12, 2028."},
   {id:"chi27sv", conf:"chi", ed:"CHI 2027", track:"sv", name:"Student volunteers (lottery)", sub:"2027-01-22", notif:"2027-01-25", st:"est",
    fmt:"Lottery on new.chisv.org. In 2026: opened Oct 15, closed Jan 23, results Jan 26; accepted volunteers confirm within two weeks."},
   {id:"chi27wsp", conf:"chi", ed:"CHI 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2026-10-01", notif:"2026-11-19", cr:"2026-12-17",
@@ -142,8 +142,9 @@ window.NOTES = [
     "Rejected papers are no longer moved to posters automatically; submit to the posters track (Dec 7) instead.",
     "All senior authors must volunteer as reviewers, or risk desk rejection.",
     "Workshop proposals close Sep 28, 2026; results Oct 12.",
+    "Doctoral Consortium: submission Nov 10, 2026, about five weeks earlier than in 2026; notification Dec 22.",
     "Student volunteers: the free registration cannot be used to register an accepted paper."],
-   src:[["Papers","https://ieeevr.org/2027/contribute/papers/"],["Posters","https://ieeevr.org/2027/contribute/posters/"],["Demos","https://ieeevr.org/2027/contribute/demos/"],["DC 2026","http://ieeevr.org/2026/contribute/doctoral-consortium/"],["SVs","https://ieeevr.org/2027/contribute/student-volunteers/"],["Workshops","https://ieeevr.org/2027/contribute/workshops/"]]},
+   src:[["Papers","https://ieeevr.org/2027/contribute/papers/"],["Posters","https://ieeevr.org/2027/contribute/posters/"],["Demos","https://ieeevr.org/2027/contribute/demos/"],["DC","https://ieeevr.org/2027/contribute/doctoral-consortium/"],["SVs","https://ieeevr.org/2027/contribute/student-volunteers/"],["Workshops","https://ieeevr.org/2027/contribute/workshops/"]]},
   {conf:"chi", title:"CHI 2027 · Pittsburgh", items:[
     "Papers closed Sep 10, 2026; reviews Nov 5, revise & resubmit Dec 3, decisions Dec 17.",
     "Posters, demos and SRC are all due Jan 21, 2027. A given piece of work can go to only one of them.",
@@ -151,7 +152,8 @@ window.NOTES = [
     "Workshop proposals close Oct 1, 2026; accepted workshops are announced Dec 17.",
     "Posters: four authors must sign up as reviewers.",
     "Student volunteers are picked by lottery on new.chisv.org; the 2027 call is not out yet.",
-    "CHI 2028 will be held in Cape Town, South Africa, May 6–12, 2028; calls not published yet."],
+    "CHI 2028 will be held in Cape Town, South Africa, May 8–12, 2028; calls not published yet.",
+    "CHI 2028 is looking for volunteers to help run the conference (organising roles, not student volunteers); the call is open until Nov 27, 2026."],
    src:[["Papers","https://chi2027.acm.org/authors/papers/"],["Posters","https://chi2027.acm.org/authors/posters/"],["Demos","https://chi2027.acm.org/authors/interactive-demos/"],["SRC","https://chi2027.acm.org/authors/student-research-competition/"],["SVs 2026","https://chi2026.acm.org/2025/10/16/call-for-svs/"],["Workshops","https://chi2027.acm.org/authors/workshops/"],["CHI 2028","https://chi2028.acm.org/"]]},
   {conf:"icmi", title:"ICMI 2027", items:[
     "2027 call not yet published; dates estimated from ICMI 2026 (Naples, Oct 5–9).",
@@ -167,14 +169,14 @@ window.NOTES = [
     "Student volunteers in 2026: applications June 8 – July 15, about 20 h of work, registration waived.",
     "Workshop proposals in 2026: May 22, notification June 5."],
    src:[["ISMAR 2027","https://www.ieeeismar.net/2027/"],["ISMAR 2026","https://www.ieeeismar.net/2026/"],["DC 2026","https://www.ieeeismar.net/2026/call-for-doctoral-consortium/"],["SVs 2026","https://www.ieeeismar.net/2026/call-for-student-volunteers/"],["Workshops 2026","https://www.ieeeismar.net/2026/call-for-workshops/"]]},
-  {conf:"cscw", title:"CSCW 2027 and beyond", items:[
+  {conf:"cscw", title:"CSCW 2027 · Philadelphia", items:[
     "Papers move to rolling submission: PACM HCI/CSCW, or ToCHI if in CSCW scope.",
     "No deadline for a given edition: a paper accepted after the program is set is presented the following year.",
     "Posters, demos and DC keep a fixed deadline (May 15 in 2026), estimated here as mid-May 2027.",
-    "CSCW 2027 venue and dates not announced yet.",
+    "CSCW 2027 will be held in Philadelphia, USA, Oct 16–20, 2027; papers accepted before the program is set are presented there. Other calls not published yet.",
     "Student volunteers: lottery on new.chisv.org, 20 h of work; travel, housing and meals at your own cost (lunch provided).",
     "Workshop proposals in 2026: Apr 10, notification May 5."],
-   src:[["CSCW 2027+","https://cscw.acm.org/rolling.html"],["Posters 2026","https://cscw.acm.org/2026/posters.html"],["DC 2026","https://cscw.acm.org/2026/dc.html"],["SVs 2026","https://cscw.acm.org/2026/sv.html"],["Workshops 2026","https://cscw.acm.org/2026/workshops.html"]]},
+   src:[["CSCW 2027+","https://cscw.acm.org/rolling.html"],["CSCW 2027","https://cscw.acm.org/2027/"],["Posters 2026","https://cscw.acm.org/2026/posters.html"],["DC 2026","https://cscw.acm.org/2026/dc.html"],["SVs 2026","https://cscw.acm.org/2026/sv.html"],["Workshops 2026","https://cscw.acm.org/2026/workshops.html"]]},
   {conf:"vrst", title:"VRST", items:[
     "VRST 2026 (Sendai, Nov 16–18): all deadlines have passed.",
     "VRST 2027 estimate: papers late June, posters and demos early September, conference mid-November.",
