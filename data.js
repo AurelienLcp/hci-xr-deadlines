@@ -14,7 +14,7 @@
    sec: true     draws a smaller marker (secondary paper type)
    ===================================================================== */
 
-window.LAST_VERIFIED = "2026-11-01";
+window.LAST_VERIFIED = "2026-11-18";
 
 window.CONFS = [
   {id:"ieeevr", name:"IEEE VR", where:"Melbourne · Feb 27 – Mar 3, 2027",
@@ -40,8 +40,8 @@ window.DEADLINES = [
    fmt:"2-page extended abstract incl. refs, anonymized. Title and abstract due Dec 2."},
   {id:"vr27d", conf:"ieeevr", ed:"IEEE VR 2027", track:"demos", name:"Research demos", sub:"2026-12-07", notif:"2027-01-07", cr:"2027-01-12", st:"ok",
    fmt:"2-page abstract + layout schematic + 1–2 min video."},
-  {id:"vr27dc", conf:"ieeevr", ed:"IEEE VR 2027", track:"dc", name:"Doctoral Consortium", sub:"2026-11-10", notif:"2026-12-22", cr:"2027-01-05", st:"ok",
-   fmt:"2-page position paper incl. refs (VGTC format) + 2-page CV, not anonymized. Optional publication in the abstracts and workshops proceedings."},
+  {id:"vr27dc", conf:"ieeevr", ed:"IEEE VR 2027", track:"dc", name:"Doctoral Consortium", sub:"2026-11-22", notif:"2026-12-22", cr:"2027-01-05", st:"ok",
+   fmt:"Extended from Nov 10. 2-page position paper incl. refs (VGTC format) + 2-page CV, not anonymized. Optional publication in the abstracts and workshops proceedings."},
   {id:"vr28p", conf:"ieeevr", ed:"IEEE VR 2028", track:"papers", name:"Papers", abs:"2027-08-23", sub:"2027-08-30", notif:"2028-01-06", cr:"2028-01-11",
    steps:[{d:"2027-11-29", lbl:"Initial decision"}, {d:"2027-12-30", lbl:"Revision due", act:true}], st:"est",
    fmt:"Estimated from the 2027 schedule (abstract one week before)."},
@@ -66,8 +66,9 @@ window.DEADLINES = [
   {id:"chi28p", conf:"chi", ed:"CHI 2028", track:"papers", name:"Papers", sub:"2027-09-09", notif:"2027-12-16",
    steps:[{d:"2027-11-04", lbl:"Reviews released"}, {d:"2027-12-02", lbl:"Resubmission due", act:true}], st:"est",
    fmt:"Estimated: the CHI papers deadline has fallen between Sep 10 and Sep 14 in recent editions. CHI 2028: Cape Town, May 8–12, 2028."},
-  {id:"chi27sv", conf:"chi", ed:"CHI 2027", track:"sv", name:"Student volunteers (lottery)", sub:"2027-01-22", notif:"2027-01-25", st:"est",
-   fmt:"Lottery on new.chisv.org. In 2026: opened Oct 15, closed Jan 23, results Jan 26; accepted volunteers confirm within two weeks."},
+  {id:"chi27sv", conf:"chi", ed:"CHI 2027", track:"sv", name:"Student volunteers (lottery)", sub:"2027-02-01", notif:"2027-02-08",
+   steps:[{d:"2027-02-22", lbl:"Accept SV position (within two weeks)", act:true}], st:"ok",
+   fmt:"Lottery on new.chisv.org, opened Nov 12. About 20 h + orientation on May 9; registration waived, breakfast and lunch provided, housing and travel not covered. About 200 spots."},
   {id:"chi27wsp", conf:"chi", ed:"CHI 2027", track:"ws", name:"Workshop proposals (organisers)", sub:"2026-10-01", notif:"2026-11-19", cr:"2026-12-17",
    steps:[{d:"2026-11-26", lbl:"E-rights form", act:true}, {d:"2026-12-03", lbl:"TAPS upload", act:true}, {d:"2026-12-14", lbl:"Update submission info", act:true}, {d:"2027-03-04", lbl:"Registration", act:true}], st:"ok",
    fmt:"Workshop jurors apply by Sep 28. The call for participation and the list of accepted workshops go out Dec 17."},
@@ -142,7 +143,7 @@ window.NOTES = [
     "Rejected papers are no longer moved to posters automatically; submit to the posters track (Dec 7) instead.",
     "All senior authors must volunteer as reviewers, or risk desk rejection.",
     "Workshop proposals close Sep 28, 2026; results Oct 12.",
-    "Doctoral Consortium: submission Nov 10, 2026, about five weeks earlier than in 2026; notification Dec 22.",
+    "Doctoral Consortium: submission extended to Nov 22, 2026 (from Nov 10), about three weeks earlier than in 2026; notification Dec 22.",
     "Student volunteers: the free registration cannot be used to register an accepted paper."],
    src:[["Papers","https://ieeevr.org/2027/contribute/papers/"],["Posters","https://ieeevr.org/2027/contribute/posters/"],["Demos","https://ieeevr.org/2027/contribute/demos/"],["DC","https://ieeevr.org/2027/contribute/doctoral-consortium/"],["SVs","https://ieeevr.org/2027/contribute/student-volunteers/"],["Workshops","https://ieeevr.org/2027/contribute/workshops/"]]},
   {conf:"chi", title:"CHI 2027 · Pittsburgh", items:[
@@ -151,10 +152,10 @@ window.NOTES = [
     "No Doctoral Consortium in 2027. The seven categories are Papers, Posters, Interactive Demos, Panels, Workshops, Meet-ups and SRC.",
     "Workshop proposals close Oct 1, 2026; accepted workshops are announced Dec 17.",
     "Posters: four authors must sign up as reviewers.",
-    "Student volunteers are picked by lottery on new.chisv.org; the 2027 call is not out yet.",
+    "Student volunteers are picked by lottery on new.chisv.org: enrolment opened Nov 12, 2026, closes Feb 1, 2027, results Feb 8; confirm your spot within two weeks.",
     "CHI 2028 will be held in Cape Town, South Africa, May 8–12, 2028; calls not published yet.",
     "CHI 2028 is looking for volunteers to help run the conference (organising roles, not student volunteers); the call is open until Nov 27, 2026."],
-   src:[["Papers","https://chi2027.acm.org/authors/papers/"],["Posters","https://chi2027.acm.org/authors/posters/"],["Demos","https://chi2027.acm.org/authors/interactive-demos/"],["SRC","https://chi2027.acm.org/authors/student-research-competition/"],["SVs 2026","https://chi2026.acm.org/2025/10/16/call-for-svs/"],["Workshops","https://chi2027.acm.org/authors/workshops/"],["CHI 2028","https://chi2028.acm.org/"]]},
+   src:[["Papers","https://chi2027.acm.org/authors/papers/"],["Posters","https://chi2027.acm.org/authors/posters/"],["Demos","https://chi2027.acm.org/authors/interactive-demos/"],["SRC","https://chi2027.acm.org/authors/student-research-competition/"],["SVs","https://chi2027.acm.org/2026/11/07/call-for-svs/"],["Workshops","https://chi2027.acm.org/authors/workshops/"],["CHI 2028","https://chi2028.acm.org/"]]},
   {conf:"icmi", title:"ICMI 2027", items:[
     "2027 call not yet published; dates estimated from ICMI 2026 (Naples, Oct 5–9).",
     "Some 2026 deadlines were 23:59 PDT rather than AoE; check the 2027 call.",
